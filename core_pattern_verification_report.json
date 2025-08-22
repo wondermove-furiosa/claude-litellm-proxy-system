@@ -1,0 +1,2223 @@
+{
+  "verification_timestamp": "2025-08-22 17:57:29",
+  "masking_rules_documented": "MASKING_RULES.md",
+  "total_patterns_documented": 56,
+  "verification_summary": {
+    "pattern_coverage_success_rate": "92.9%",
+    "conflict_resolution_success_rate": "80.0%",
+    "masking_cycle_success_rate": "100.0%",
+    "overall_success_rate": "91.0%"
+  },
+  "detailed_results": {
+    "pattern_verification": {
+      "individual_pattern_results": {
+        "fargate_task": {
+          "priority": 50,
+          "expected_type": "fargate",
+          "sample_results": [
+            {
+              "sample": "arn:aws:ecs:us-east-1:123456789012:task/my-fargate-cluster/1234abcd-12ab-34cd-56ef-1234567890ab",
+              "detected": true,
+              "detected_type": "fargate",
+              "expected_type": "fargate",
+              "type_match": true,
+              "detected_priority": 50,
+              "expected_priority": 50,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 95,
+              "match_length": 95
+            },
+            {
+              "sample": "arn:aws:ecs:eu-west-1:987654321098:task/prod-cluster/abcd1234-56ef-78gh-90ij-klmnopqrstuv",
+              "detected": true,
+              "detected_type": "fargate",
+              "expected_type": "fargate",
+              "type_match": true,
+              "detected_priority": 50,
+              "expected_priority": 50,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 89,
+              "match_length": 89
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "ssm_session": {
+          "priority": 60,
+          "expected_type": "ssm_session",
+          "sample_results": [
+            {
+              "sample": "s-01234567890abcdef",
+              "detected": true,
+              "detected_type": "ssm_session",
+              "expected_type": "ssm_session",
+              "type_match": true,
+              "detected_priority": 60,
+              "expected_priority": 60,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 19,
+              "match_length": 19
+            },
+            {
+              "sample": "s-0987654321fedcba0",
+              "detected": true,
+              "detected_type": "ssm_session",
+              "expected_type": "ssm_session",
+              "type_match": true,
+              "detected_priority": 60,
+              "expected_priority": 60,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 19,
+              "match_length": 19
+            },
+            {
+              "sample": "s-abcdef1234567890a",
+              "detected": true,
+              "detected_type": "ssm_session",
+              "expected_type": "ssm_session",
+              "type_match": true,
+              "detected_priority": 60,
+              "expected_priority": 60,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 19,
+              "match_length": 19
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "insights_query": {
+          "priority": 75,
+          "expected_type": "insights",
+          "sample_results": [
+            {
+              "sample": "12345678-1234-1234-1234-123456789012",
+              "detected": true,
+              "detected_type": "kms",
+              "expected_type": "insights",
+              "type_match": false,
+              "detected_priority": 370,
+              "expected_priority": 75,
+              "priority_match": false,
+              "match_start": 0,
+              "match_end": 36,
+              "match_length": 36
+            },
+            {
+              "sample": "abcd1234-ef56-7890-abcd-ef1234567890",
+              "detected": true,
+              "detected_type": "insights",
+              "expected_type": "insights",
+              "type_match": true,
+              "detected_priority": 75,
+              "expected_priority": 75,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 36,
+              "match_length": 36
+            },
+            {
+              "sample": "87654321-4321-8765-4321-876543218765",
+              "detected": true,
+              "detected_type": "kms",
+              "expected_type": "insights",
+              "type_match": false,
+              "detected_priority": 370,
+              "expected_priority": 75,
+              "priority_match": false,
+              "match_start": 0,
+              "match_end": 36,
+              "match_length": 36
+            }
+          ],
+          "all_samples_passed": false,
+          "detection_rate": 33.33333333333333
+        },
+        "apprunner_service": {
+          "priority": 85,
+          "expected_type": "apprunner",
+          "sample_results": [
+            {
+              "sample": "arn:aws:apprunner:us-east-1:123456789012:service/my-app-service/8fe1e10304374e7c80684681ea1967",
+              "detected": true,
+              "detected_type": "apprunner",
+              "expected_type": "apprunner",
+              "type_match": true,
+              "detected_priority": 85,
+              "expected_priority": 85,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 94,
+              "match_length": 94
+            },
+            {
+              "sample": "arn:aws:apprunner:eu-west-1:987654321098:service/prod-service/1234567890abcdef1234567890abcd",
+              "detected": true,
+              "detected_type": "apprunner",
+              "expected_type": "apprunner",
+              "type_match": true,
+              "detected_priority": 85,
+              "expected_priority": 85,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 92,
+              "match_length": 92
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "eventbridge_bus": {
+          "priority": 95,
+          "expected_type": "eventbridge",
+          "sample_results": [
+            {
+              "sample": "arn:aws:events:us-east-1:123456789012:event-bus/my-custom-bus",
+              "detected": true,
+              "detected_type": "eventbridge",
+              "expected_type": "eventbridge",
+              "type_match": true,
+              "detected_priority": 95,
+              "expected_priority": 95,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 61,
+              "match_length": 61
+            },
+            {
+              "sample": "arn:aws:events:ap-southeast-1:123456789012:event-bus/production-events",
+              "detected": true,
+              "detected_type": "eventbridge",
+              "expected_type": "eventbridge",
+              "type_match": true,
+              "detected_priority": 95,
+              "expected_priority": 95,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 70,
+              "match_length": 70
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "lambda_arn": {
+          "priority": 100,
+          "expected_type": "lambda",
+          "sample_results": [
+            {
+              "sample": "arn:aws:lambda:us-east-1:123456789012:function:ProcessPayment",
+              "detected": true,
+              "detected_type": "lambda",
+              "expected_type": "lambda",
+              "type_match": true,
+              "detected_priority": 100,
+              "expected_priority": 100,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 61,
+              "match_length": 61
+            },
+            {
+              "sample": "arn:aws:lambda:eu-west-1:987654321098:function:user-authentication",
+              "detected": true,
+              "detected_type": "lambda",
+              "expected_type": "lambda",
+              "type_match": true,
+              "detected_priority": 100,
+              "expected_priority": 100,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 66,
+              "match_length": 66
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "ecs_task": {
+          "priority": 105,
+          "expected_type": "ecs",
+          "sample_results": [
+            {
+              "sample": "arn:aws:ecs:us-east-1:123456789012:task-definition/web-app:1",
+              "detected": true,
+              "detected_type": "ecs",
+              "expected_type": "ecs",
+              "type_match": true,
+              "detected_priority": 105,
+              "expected_priority": 105,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 60,
+              "match_length": 60
+            },
+            {
+              "sample": "arn:aws:ecs:eu-west-1:987654321098:task-definition/api-service:23",
+              "detected": true,
+              "detected_type": "ecs",
+              "expected_type": "ecs",
+              "type_match": true,
+              "detected_priority": 105,
+              "expected_priority": 105,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 65,
+              "match_length": 65
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "elb_arn": {
+          "priority": 110,
+          "expected_type": "elb",
+          "sample_results": [
+            {
+              "sample": "arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188",
+              "detected": true,
+              "detected_type": "elb",
+              "expected_type": "elb",
+              "type_match": true,
+              "detected_priority": 110,
+              "expected_priority": 110,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 102,
+              "match_length": 102
+            },
+            {
+              "sample": "arn:aws:elasticloadbalancing:eu-west-1:123456789012:loadbalancer/network/prod-nlb/1234567890abcdef",
+              "detected": true,
+              "detected_type": "elb",
+              "expected_type": "elb",
+              "type_match": true,
+              "detected_priority": 110,
+              "expected_priority": 110,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 98,
+              "match_length": 98
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "iam_role": {
+          "priority": 115,
+          "expected_type": "iam_role",
+          "sample_results": [
+            {
+              "sample": "arn:aws:iam::123456789012:role/EC2-Role",
+              "detected": true,
+              "detected_type": "iam_role",
+              "expected_type": "iam_role",
+              "type_match": true,
+              "detected_priority": 115,
+              "expected_priority": 115,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 39,
+              "match_length": 39
+            },
+            {
+              "sample": "arn:aws:iam::987654321098:role/LambdaExecutionRole",
+              "detected": true,
+              "detected_type": "iam_role",
+              "expected_type": "iam_role",
+              "type_match": true,
+              "detected_priority": 115,
+              "expected_priority": 115,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 50,
+              "match_length": 50
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "iam_user": {
+          "priority": 120,
+          "expected_type": "iam_user",
+          "sample_results": [
+            {
+              "sample": "arn:aws:iam::123456789012:user/alice",
+              "detected": true,
+              "detected_type": "iam_user",
+              "expected_type": "iam_user",
+              "type_match": true,
+              "detected_priority": 120,
+              "expected_priority": 120,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 36,
+              "match_length": 36
+            },
+            {
+              "sample": "arn:aws:iam::987654321098:user/service-account",
+              "detected": true,
+              "detected_type": "iam_user",
+              "expected_type": "iam_user",
+              "type_match": true,
+              "detected_priority": 120,
+              "expected_priority": 120,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 46,
+              "match_length": 46
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "sns_topic": {
+          "priority": 125,
+          "expected_type": "sns",
+          "sample_results": [
+            {
+              "sample": "arn:aws:sns:us-east-1:123456789012:MyTopic",
+              "detected": true,
+              "detected_type": "sns",
+              "expected_type": "sns",
+              "type_match": true,
+              "detected_priority": 125,
+              "expected_priority": 125,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 42,
+              "match_length": 42
+            },
+            {
+              "sample": "arn:aws:sns:eu-west-1:987654321098:production-alerts",
+              "detected": true,
+              "detected_type": "sns",
+              "expected_type": "sns",
+              "type_match": true,
+              "detected_priority": 125,
+              "expected_priority": 125,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 52,
+              "match_length": 52
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "cert_arn": {
+          "priority": 130,
+          "expected_type": "certificate",
+          "sample_results": [
+            {
+              "sample": "arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012",
+              "detected": true,
+              "detected_type": "certificate",
+              "expected_type": "certificate",
+              "type_match": true,
+              "detected_priority": 130,
+              "expected_priority": 130,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 83,
+              "match_length": 83
+            },
+            {
+              "sample": "arn:aws:acm:eu-west-1:987654321098:certificate/abcdef12-3456-7890-abcd-ef1234567890",
+              "detected": true,
+              "detected_type": "certificate",
+              "expected_type": "certificate",
+              "type_match": true,
+              "detected_priority": 130,
+              "expected_priority": 130,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 83,
+              "match_length": 83
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "secret_arn": {
+          "priority": 135,
+          "expected_type": "secret",
+          "sample_results": [
+            {
+              "sample": "arn:aws:secretsmanager:us-east-1:123456789012:secret:MySecret-AbCdEf",
+              "detected": true,
+              "detected_type": "secret",
+              "expected_type": "secret",
+              "type_match": true,
+              "detected_priority": 135,
+              "expected_priority": 135,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 68,
+              "match_length": 68
+            },
+            {
+              "sample": "arn:aws:secretsmanager:eu-west-1:987654321098:secret:DatabaseCredentials-Xy1Z2a",
+              "detected": true,
+              "detected_type": "secret",
+              "expected_type": "secret",
+              "type_match": true,
+              "detected_priority": 135,
+              "expected_priority": 135,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 79,
+              "match_length": 79
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "sqs_queue": {
+          "priority": 140,
+          "expected_type": "sqs",
+          "sample_results": [
+            {
+              "sample": "https://sqs.us-east-1.amazonaws.com/123456789012/MyQueue",
+              "detected": true,
+              "detected_type": "sqs",
+              "expected_type": "sqs",
+              "type_match": true,
+              "detected_priority": 140,
+              "expected_priority": 140,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 56,
+              "match_length": 56
+            },
+            {
+              "sample": "https://sqs.eu-west-1.amazonaws.com/987654321098/production-queue",
+              "detected": true,
+              "detected_type": "sqs",
+              "expected_type": "sqs",
+              "type_match": true,
+              "detected_priority": 140,
+              "expected_priority": 140,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 65,
+              "match_length": 65
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "dynamodb_table": {
+          "priority": 145,
+          "expected_type": "dynamodb",
+          "sample_results": [
+            {
+              "sample": "arn:aws:dynamodb:us-east-1:123456789012:table/Music",
+              "detected": true,
+              "detected_type": "dynamodb",
+              "expected_type": "dynamodb",
+              "type_match": true,
+              "detected_priority": 145,
+              "expected_priority": 145,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 51,
+              "match_length": 51
+            },
+            {
+              "sample": "arn:aws:dynamodb:eu-west-1:987654321098:table/UserSessions",
+              "detected": true,
+              "detected_type": "dynamodb",
+              "expected_type": "dynamodb",
+              "type_match": true,
+              "detected_priority": 145,
+              "expected_priority": 145,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 58,
+              "match_length": 58
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "kinesis_stream": {
+          "priority": 150,
+          "expected_type": "kinesis",
+          "sample_results": [
+            {
+              "sample": "arn:aws:kinesis:us-east-1:123456789012:stream/my-stream",
+              "detected": true,
+              "detected_type": "kinesis",
+              "expected_type": "kinesis",
+              "type_match": true,
+              "detected_priority": 150,
+              "expected_priority": 150,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 55,
+              "match_length": 55
+            },
+            {
+              "sample": "arn:aws:kinesis:eu-west-1:987654321098:stream/analytics-data",
+              "detected": true,
+              "detected_type": "kinesis",
+              "expected_type": "kinesis",
+              "type_match": true,
+              "detected_priority": 150,
+              "expected_priority": 150,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 60,
+              "match_length": 60
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "stepfunctions_arn": {
+          "priority": 155,
+          "expected_type": "stepfunctions",
+          "sample_results": [
+            {
+              "sample": "arn:aws:states:us-east-1:123456789012:stateMachine:HelloWorld",
+              "detected": true,
+              "detected_type": "stepfunctions",
+              "expected_type": "stepfunctions",
+              "type_match": true,
+              "detected_priority": 155,
+              "expected_priority": 155,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 61,
+              "match_length": 61
+            },
+            {
+              "sample": "arn:aws:states:eu-west-1:987654321098:stateMachine:DataProcessingPipeline",
+              "detected": true,
+              "detected_type": "stepfunctions",
+              "expected_type": "stepfunctions",
+              "type_match": true,
+              "detected_priority": 155,
+              "expected_priority": 155,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 73,
+              "match_length": 73
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "batch_job": {
+          "priority": 160,
+          "expected_type": "batch",
+          "sample_results": [
+            {
+              "sample": "arn:aws:batch:us-east-1:123456789012:job-queue/my-job-queue",
+              "detected": true,
+              "detected_type": "batch",
+              "expected_type": "batch",
+              "type_match": true,
+              "detected_priority": 160,
+              "expected_priority": 160,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 59,
+              "match_length": 59
+            },
+            {
+              "sample": "arn:aws:batch:eu-west-1:987654321098:job-queue/high-priority-jobs",
+              "detected": true,
+              "detected_type": "batch",
+              "expected_type": "batch",
+              "type_match": true,
+              "detected_priority": 160,
+              "expected_priority": 160,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 65,
+              "match_length": 65
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "glue_job": {
+          "priority": 165,
+          "expected_type": "glue",
+          "sample_results": [
+            {
+              "sample": "arn:aws:glue:us-east-1:123456789012:job/my-glue-job",
+              "detected": true,
+              "detected_type": "glue",
+              "expected_type": "glue",
+              "type_match": true,
+              "detected_priority": 165,
+              "expected_priority": 165,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 51,
+              "match_length": 51
+            },
+            {
+              "sample": "arn:aws:glue:eu-west-1:987654321098:job/etl-pipeline-job",
+              "detected": true,
+              "detected_type": "glue",
+              "expected_type": "glue",
+              "type_match": true,
+              "detected_priority": 165,
+              "expected_priority": 165,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 56,
+              "match_length": 56
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "sagemaker_endpoint": {
+          "priority": 170,
+          "expected_type": "sagemaker",
+          "sample_results": [
+            {
+              "sample": "arn:aws:sagemaker:us-east-1:123456789012:endpoint/my-endpoint",
+              "detected": true,
+              "detected_type": "sagemaker",
+              "expected_type": "sagemaker",
+              "type_match": true,
+              "detected_priority": 170,
+              "expected_priority": 170,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 61,
+              "match_length": 61
+            },
+            {
+              "sample": "arn:aws:sagemaker:eu-west-1:987654321098:endpoint/ml-inference-endpoint",
+              "detected": true,
+              "detected_type": "sagemaker",
+              "expected_type": "sagemaker",
+              "type_match": true,
+              "detected_priority": 170,
+              "expected_priority": 170,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 71,
+              "match_length": 71
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "athena_workgroup": {
+          "priority": 175,
+          "expected_type": "athena",
+          "sample_results": [
+            {
+              "sample": "arn:aws:athena:us-east-1:123456789012:workgroup/primary",
+              "detected": true,
+              "detected_type": "athena",
+              "expected_type": "athena",
+              "type_match": true,
+              "detected_priority": 175,
+              "expected_priority": 175,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 55,
+              "match_length": 55
+            },
+            {
+              "sample": "arn:aws:athena:eu-west-1:987654321098:workgroup/analytics-team",
+              "detected": true,
+              "detected_type": "athena",
+              "expected_type": "athena",
+              "type_match": true,
+              "detected_priority": 175,
+              "expected_priority": 175,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 62,
+              "match_length": 62
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "codecommit_repo": {
+          "priority": 180,
+          "expected_type": "codecommit",
+          "sample_results": [
+            {
+              "sample": "arn:aws:codecommit:us-east-1:123456789012:repository/MyRepo",
+              "detected": true,
+              "detected_type": "codecommit",
+              "expected_type": "codecommit",
+              "type_match": true,
+              "detected_priority": 180,
+              "expected_priority": 180,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 59,
+              "match_length": 59
+            },
+            {
+              "sample": "arn:aws:codecommit:eu-west-1:987654321098:repository/backend-services",
+              "detected": true,
+              "detected_type": "codecommit",
+              "expected_type": "codecommit",
+              "type_match": true,
+              "detected_priority": 180,
+              "expected_priority": 180,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 69,
+              "match_length": 69
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "log_group": {
+          "priority": 185,
+          "expected_type": "logs",
+          "sample_results": [
+            {
+              "sample": "arn:aws:logs:us-east-1:123456789012:log-group:/aws/lambda/ProcessPayment",
+              "detected": true,
+              "detected_type": "logs",
+              "expected_type": "logs",
+              "type_match": true,
+              "detected_priority": 185,
+              "expected_priority": 185,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 72,
+              "match_length": 72
+            },
+            {
+              "sample": "arn:aws:logs:eu-west-1:987654321098:log-group:/aws/apigateway/production",
+              "detected": true,
+              "detected_type": "logs",
+              "expected_type": "logs",
+              "type_match": true,
+              "detected_priority": 185,
+              "expected_priority": 185,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 72,
+              "match_length": 72
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "cloudformation_stack": {
+          "priority": 190,
+          "expected_type": "cloudformation",
+          "sample_results": [
+            {
+              "sample": "arn:aws:cloudformation:us-east-1:123456789012:stack/my-stack/12345678-1234-1234-1234-123456789012",
+              "detected": true,
+              "detected_type": "cloudformation",
+              "expected_type": "cloudformation",
+              "type_match": true,
+              "detected_priority": 190,
+              "expected_priority": 190,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 97,
+              "match_length": 97
+            },
+            {
+              "sample": "arn:aws:cloudformation:eu-west-1:987654321098:stack/production-infrastructure/abcdef12-3456-7890-abcd-ef1234567890",
+              "detected": true,
+              "detected_type": "cloudformation",
+              "expected_type": "cloudformation",
+              "type_match": true,
+              "detected_priority": 190,
+              "expected_priority": 190,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 114,
+              "match_length": 114
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "nat_gateway": {
+          "priority": 200,
+          "expected_type": "nat",
+          "sample_results": [
+            {
+              "sample": "nat-0123456789abcdef0",
+              "detected": true,
+              "detected_type": "nat",
+              "expected_type": "nat",
+              "type_match": true,
+              "detected_priority": 200,
+              "expected_priority": 200,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 21,
+              "match_length": 21
+            },
+            {
+              "sample": "nat-abcdef1234567890a",
+              "detected": true,
+              "detected_type": "nat",
+              "expected_type": "nat",
+              "type_match": true,
+              "detected_priority": 200,
+              "expected_priority": 200,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 21,
+              "match_length": 21
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "ebs_volume": {
+          "priority": 210,
+          "expected_type": "ebs",
+          "sample_results": [
+            {
+              "sample": "vol-0123456789abcdef0",
+              "detected": true,
+              "detected_type": "ebs",
+              "expected_type": "ebs",
+              "type_match": true,
+              "detected_priority": 210,
+              "expected_priority": 210,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 21,
+              "match_length": 21
+            },
+            {
+              "sample": "vol-abcdef1234567890a",
+              "detected": true,
+              "detected_type": "ebs",
+              "expected_type": "ebs",
+              "type_match": true,
+              "detected_priority": 210,
+              "expected_priority": 210,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 21,
+              "match_length": 21
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "subnet": {
+          "priority": 220,
+          "expected_type": "subnet",
+          "sample_results": [
+            {
+              "sample": "subnet-12345678901234567",
+              "detected": true,
+              "detected_type": "subnet",
+              "expected_type": "subnet",
+              "type_match": true,
+              "detected_priority": 220,
+              "expected_priority": 220,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 24,
+              "match_length": 24
+            },
+            {
+              "sample": "subnet-98765432109876543",
+              "detected": true,
+              "detected_type": "subnet",
+              "expected_type": "subnet",
+              "type_match": true,
+              "detected_priority": 220,
+              "expected_priority": 220,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 24,
+              "match_length": 24
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "vpc": {
+          "priority": 230,
+          "expected_type": "vpc",
+          "sample_results": [
+            {
+              "sample": "vpc-12345678",
+              "detected": true,
+              "detected_type": "vpc",
+              "expected_type": "vpc",
+              "type_match": true,
+              "detected_priority": 230,
+              "expected_priority": 230,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 12,
+              "match_length": 12
+            },
+            {
+              "sample": "vpc-abcdef12",
+              "detected": true,
+              "detected_type": "vpc",
+              "expected_type": "vpc",
+              "type_match": true,
+              "detected_priority": 230,
+              "expected_priority": 230,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 12,
+              "match_length": 12
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "security_group": {
+          "priority": 240,
+          "expected_type": "security_group",
+          "sample_results": [
+            {
+              "sample": "sg-0123456789abcdef0",
+              "detected": true,
+              "detected_type": "security_group",
+              "expected_type": "security_group",
+              "type_match": true,
+              "detected_priority": 240,
+              "expected_priority": 240,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 20,
+              "match_length": 20
+            },
+            {
+              "sample": "sg-abcdef1234567890a",
+              "detected": true,
+              "detected_type": "security_group",
+              "expected_type": "security_group",
+              "type_match": true,
+              "detected_priority": 240,
+              "expected_priority": 240,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 20,
+              "match_length": 20
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "ami_id": {
+          "priority": 250,
+          "expected_type": "ami",
+          "sample_results": [
+            {
+              "sample": "ami-0123456789abcdef0",
+              "detected": true,
+              "detected_type": "ami",
+              "expected_type": "ami",
+              "type_match": true,
+              "detected_priority": 250,
+              "expected_priority": 250,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 21,
+              "match_length": 21
+            },
+            {
+              "sample": "ami-abcdef1234567890a",
+              "detected": true,
+              "detected_type": "ami",
+              "expected_type": "ami",
+              "type_match": true,
+              "detected_priority": 250,
+              "expected_priority": 250,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 21,
+              "match_length": 21
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "ec2_instance": {
+          "priority": 260,
+          "expected_type": "ec2",
+          "sample_results": [
+            {
+              "sample": "i-0123456789abcdef0",
+              "detected": true,
+              "detected_type": "ec2",
+              "expected_type": "ec2",
+              "type_match": true,
+              "detected_priority": 260,
+              "expected_priority": 260,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 19,
+              "match_length": 19
+            },
+            {
+              "sample": "i-abcdef1234567890a",
+              "detected": true,
+              "detected_type": "ec2",
+              "expected_type": "ec2",
+              "type_match": true,
+              "detected_priority": 260,
+              "expected_priority": 260,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 19,
+              "match_length": 19
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "snapshot": {
+          "priority": 270,
+          "expected_type": "snapshot",
+          "sample_results": [
+            {
+              "sample": "snap-0123456789abcdef0",
+              "detected": true,
+              "detected_type": "snapshot",
+              "expected_type": "snapshot",
+              "type_match": true,
+              "detected_priority": 270,
+              "expected_priority": 270,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 22,
+              "match_length": 22
+            },
+            {
+              "sample": "snap-abcdef1234567890a",
+              "detected": true,
+              "detected_type": "snapshot",
+              "expected_type": "snapshot",
+              "type_match": true,
+              "detected_priority": 270,
+              "expected_priority": 270,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 22,
+              "match_length": 22
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "internet_gateway": {
+          "priority": 280,
+          "expected_type": "igw",
+          "sample_results": [
+            {
+              "sample": "igw-0123456789abcdef0",
+              "detected": true,
+              "detected_type": "igw",
+              "expected_type": "igw",
+              "type_match": true,
+              "detected_priority": 280,
+              "expected_priority": 280,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 21,
+              "match_length": 21
+            },
+            {
+              "sample": "igw-abcdef1234567890a",
+              "detected": true,
+              "detected_type": "igw",
+              "expected_type": "igw",
+              "type_match": true,
+              "detected_priority": 280,
+              "expected_priority": 280,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 21,
+              "match_length": 21
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "efs_filesystem": {
+          "priority": 290,
+          "expected_type": "efs",
+          "sample_results": [
+            {
+              "sample": "fs-0123456789abcdef0",
+              "detected": true,
+              "detected_type": "efs",
+              "expected_type": "efs",
+              "type_match": true,
+              "detected_priority": 290,
+              "expected_priority": 290,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 20,
+              "match_length": 20
+            },
+            {
+              "sample": "fs-abcdef1234567890a",
+              "detected": true,
+              "detected_type": "efs",
+              "expected_type": "efs",
+              "type_match": true,
+              "detected_priority": 290,
+              "expected_priority": 290,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 20,
+              "match_length": 20
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "rds_instance": {
+          "priority": 300,
+          "expected_type": "rds",
+          "sample_results": [
+            {
+              "sample": "mydb-instance-1234567",
+              "detected": true,
+              "detected_type": "rds",
+              "expected_type": "rds",
+              "type_match": true,
+              "detected_priority": 300,
+              "expected_priority": 300,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 21,
+              "match_length": 21
+            },
+            {
+              "sample": "production-db-cluster",
+              "detected": true,
+              "detected_type": "rds",
+              "expected_type": "rds",
+              "type_match": true,
+              "detected_priority": 300,
+              "expected_priority": 300,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 21,
+              "match_length": 21
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "elasticache_cluster": {
+          "priority": 310,
+          "expected_type": "elasticache",
+          "sample_results": [
+            {
+              "sample": "my-cache-cluster-001",
+              "detected": true,
+              "detected_type": "elasticache",
+              "expected_type": "elasticache",
+              "type_match": true,
+              "detected_priority": 310,
+              "expected_priority": 310,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 20,
+              "match_length": 20
+            },
+            {
+              "sample": "prod-redis-cluster-002",
+              "detected": true,
+              "detected_type": "elasticache",
+              "expected_type": "elasticache",
+              "type_match": true,
+              "detected_priority": 310,
+              "expected_priority": 310,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 22,
+              "match_length": 22
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "redshift_cluster": {
+          "priority": 320,
+          "expected_type": "redshift",
+          "sample_results": [
+            {
+              "sample": "my-redshift-cluster",
+              "detected": true,
+              "detected_type": "redshift",
+              "expected_type": "redshift",
+              "type_match": true,
+              "detected_priority": 320,
+              "expected_priority": 320,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 19,
+              "match_length": 19
+            },
+            {
+              "sample": "analytics-cluster-prod",
+              "detected": true,
+              "detected_type": "redshift",
+              "expected_type": "redshift",
+              "type_match": true,
+              "detected_priority": 320,
+              "expected_priority": 320,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 17,
+              "match_length": 17
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "transit_gateway": {
+          "priority": 330,
+          "expected_type": "tgw",
+          "sample_results": [
+            {
+              "sample": "tgw-0123456789abcdef0",
+              "detected": true,
+              "detected_type": "tgw",
+              "expected_type": "tgw",
+              "type_match": true,
+              "detected_priority": 330,
+              "expected_priority": 330,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 21,
+              "match_length": 21
+            },
+            {
+              "sample": "tgw-abcdef1234567890a",
+              "detected": true,
+              "detected_type": "tgw",
+              "expected_type": "tgw",
+              "type_match": true,
+              "detected_priority": 330,
+              "expected_priority": 330,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 21,
+              "match_length": 21
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "api_gateway": {
+          "priority": 340,
+          "expected_type": "api_gateway",
+          "sample_results": [
+            {
+              "sample": "https://abcd123456.execute-api.us-east-1.amazonaws.com/prod",
+              "detected": true,
+              "detected_type": "api_gateway",
+              "expected_type": "api_gateway",
+              "type_match": true,
+              "detected_priority": 320,
+              "expected_priority": 340,
+              "priority_match": false,
+              "match_start": 0,
+              "match_end": 59,
+              "match_length": 59
+            },
+            {
+              "sample": "https://xyz789abc.execute-api.eu-west-1.amazonaws.com/stage",
+              "detected": true,
+              "detected_type": "ssm_parameter",
+              "expected_type": "api_gateway",
+              "type_match": false,
+              "detected_priority": 380,
+              "expected_priority": 340,
+              "priority_match": false,
+              "match_start": 6,
+              "match_end": 17,
+              "match_length": 11
+            }
+          ],
+          "all_samples_passed": false,
+          "detection_rate": 0.0
+        },
+        "access_key": {
+          "priority": 350,
+          "expected_type": "access_key",
+          "sample_results": [
+            {
+              "sample": "AKIA1234567890ABCDEF",
+              "detected": true,
+              "detected_type": "access_key",
+              "expected_type": "access_key",
+              "type_match": true,
+              "detected_priority": 350,
+              "expected_priority": 350,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 20,
+              "match_length": 20
+            },
+            {
+              "sample": "AKIAXYZ789ABC123DEFG",
+              "detected": true,
+              "detected_type": "access_key",
+              "expected_type": "access_key",
+              "type_match": true,
+              "detected_priority": 350,
+              "expected_priority": 350,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 20,
+              "match_length": 20
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "route53_zone": {
+          "priority": 360,
+          "expected_type": "route53",
+          "sample_results": [
+            {
+              "sample": "Z1D633PJN98FT9",
+              "detected": true,
+              "detected_type": "route53",
+              "expected_type": "route53",
+              "type_match": true,
+              "detected_priority": 360,
+              "expected_priority": 360,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 14,
+              "match_length": 14
+            },
+            {
+              "sample": "Z23ABC4DEF5GH6",
+              "detected": true,
+              "detected_type": "route53",
+              "expected_type": "route53",
+              "type_match": true,
+              "detected_priority": 360,
+              "expected_priority": 360,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 14,
+              "match_length": 14
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "kms_key": {
+          "priority": 370,
+          "expected_type": "kms",
+          "sample_results": [
+            {
+              "sample": "12345678-1234-1234-1234-123456789012",
+              "detected": true,
+              "detected_type": "kms",
+              "expected_type": "kms",
+              "type_match": true,
+              "detected_priority": 370,
+              "expected_priority": 370,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 36,
+              "match_length": 36
+            },
+            {
+              "sample": "abcdef12-3456-7890-abcd-ef1234567890",
+              "detected": true,
+              "detected_type": "insights",
+              "expected_type": "kms",
+              "type_match": false,
+              "detected_priority": 75,
+              "expected_priority": 370,
+              "priority_match": false,
+              "match_start": 0,
+              "match_end": 36,
+              "match_length": 36
+            }
+          ],
+          "all_samples_passed": false,
+          "detection_rate": 50.0
+        },
+        "ssm_parameter": {
+          "priority": 380,
+          "expected_type": "ssm_parameter",
+          "sample_results": [
+            {
+              "sample": "/myapp/database/password",
+              "detected": true,
+              "detected_type": "ssm_parameter",
+              "expected_type": "ssm_parameter",
+              "type_match": true,
+              "detected_priority": 380,
+              "expected_priority": 380,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 24,
+              "match_length": 24
+            },
+            {
+              "sample": "/production/api/secret-key",
+              "detected": true,
+              "detected_type": "ssm_parameter",
+              "expected_type": "ssm_parameter",
+              "type_match": true,
+              "detected_priority": 380,
+              "expected_priority": 380,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 26,
+              "match_length": 26
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "cloudwatch_log": {
+          "priority": 390,
+          "expected_type": "cloudwatch",
+          "sample_results": [
+            {
+              "sample": "/aws/lambda/my-function",
+              "detected": true,
+              "detected_type": "ssm_parameter",
+              "expected_type": "cloudwatch",
+              "type_match": false,
+              "detected_priority": 380,
+              "expected_priority": 390,
+              "priority_match": false,
+              "match_start": 0,
+              "match_end": 23,
+              "match_length": 23
+            },
+            {
+              "sample": "/aws/apigateway/production-api",
+              "detected": true,
+              "detected_type": "ssm_parameter",
+              "expected_type": "cloudwatch",
+              "type_match": false,
+              "detected_priority": 380,
+              "expected_priority": 390,
+              "priority_match": false,
+              "match_start": 0,
+              "match_end": 30,
+              "match_length": 30
+            }
+          ],
+          "all_samples_passed": false,
+          "detection_rate": 0.0
+        },
+        "s3_bucket_logs": {
+          "priority": 395,
+          "expected_type": "s3_logs",
+          "sample_results": [
+            {
+              "sample": "my-logs-bucket-20231201",
+              "detected": true,
+              "detected_type": "s3_logs",
+              "expected_type": "s3_logs",
+              "type_match": true,
+              "detected_priority": 395,
+              "expected_priority": 395,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 23,
+              "match_length": 23
+            },
+            {
+              "sample": "application-logs-2024-production",
+              "detected": true,
+              "detected_type": "s3_logs",
+              "expected_type": "s3_logs",
+              "type_match": true,
+              "detected_priority": 395,
+              "expected_priority": 395,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 21,
+              "match_length": 21
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "cloudtrail_arn": {
+          "priority": 399,
+          "expected_type": "cloudtrail",
+          "sample_results": [
+            {
+              "sample": "arn:aws:cloudtrail:us-east-1:123456789012:trail/MyTrail",
+              "detected": true,
+              "detected_type": "cloudtrail",
+              "expected_type": "cloudtrail",
+              "type_match": true,
+              "detected_priority": 399,
+              "expected_priority": 399,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 55,
+              "match_length": 55
+            },
+            {
+              "sample": "arn:aws:cloudtrail:eu-west-1:987654321098:trail/AuditTrail",
+              "detected": true,
+              "detected_type": "cloudtrail",
+              "expected_type": "cloudtrail",
+              "type_match": true,
+              "detected_priority": 399,
+              "expected_priority": 399,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 58,
+              "match_length": 58
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "public_ip": {
+          "priority": 460,
+          "expected_type": "public_ip",
+          "sample_results": [
+            {
+              "sample": "203.0.113.12",
+              "detected": true,
+              "detected_type": "public_ip",
+              "expected_type": "public_ip",
+              "type_match": true,
+              "detected_priority": 460,
+              "expected_priority": 460,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 12,
+              "match_length": 12
+            },
+            {
+              "sample": "198.51.100.45",
+              "detected": true,
+              "detected_type": "public_ip",
+              "expected_type": "public_ip",
+              "type_match": true,
+              "detected_priority": 460,
+              "expected_priority": 460,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 13,
+              "match_length": 13
+            },
+            {
+              "sample": "8.8.8.8",
+              "detected": true,
+              "detected_type": "public_ip",
+              "expected_type": "public_ip",
+              "type_match": true,
+              "detected_priority": 460,
+              "expected_priority": 460,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 7,
+              "match_length": 7
+            },
+            {
+              "sample": "1.1.1.1",
+              "detected": true,
+              "detected_type": "public_ip",
+              "expected_type": "public_ip",
+              "type_match": true,
+              "detected_priority": 460,
+              "expected_priority": 460,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 7,
+              "match_length": 7
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "ipv6": {
+          "priority": 470,
+          "expected_type": "ipv6",
+          "sample_results": [
+            {
+              "sample": "2001:0db8:85a3:0000:0000:8a2e:0370:7334",
+              "detected": true,
+              "detected_type": "ipv6",
+              "expected_type": "ipv6",
+              "type_match": true,
+              "detected_priority": 470,
+              "expected_priority": 470,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 39,
+              "match_length": 39
+            },
+            {
+              "sample": "2001:db8::1",
+              "detected": true,
+              "detected_type": "ipv6",
+              "expected_type": "ipv6",
+              "type_match": true,
+              "detected_priority": 470,
+              "expected_priority": 470,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 10,
+              "match_length": 10
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "elastic_ip": {
+          "priority": 480,
+          "expected_type": "elastic_ip",
+          "sample_results": [
+            {
+              "sample": "eipalloc-0123456789abcdef0",
+              "detected": true,
+              "detected_type": "elastic_ip",
+              "expected_type": "elastic_ip",
+              "type_match": true,
+              "detected_priority": 480,
+              "expected_priority": 480,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 26,
+              "match_length": 26
+            },
+            {
+              "sample": "eipalloc-abcdef1234567890a",
+              "detected": true,
+              "detected_type": "elastic_ip",
+              "expected_type": "elastic_ip",
+              "type_match": true,
+              "detected_priority": 480,
+              "expected_priority": 480,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 26,
+              "match_length": 26
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "cloudfront": {
+          "priority": 490,
+          "expected_type": "cloudfront",
+          "sample_results": [
+            {
+              "sample": "d111111abcdef8.cloudfront.net",
+              "detected": true,
+              "detected_type": "cloudfront",
+              "expected_type": "cloudfront",
+              "type_match": true,
+              "detected_priority": 490,
+              "expected_priority": 490,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 29,
+              "match_length": 29
+            },
+            {
+              "sample": "d222222fedcba9.cloudfront.net",
+              "detected": true,
+              "detected_type": "cloudfront",
+              "expected_type": "cloudfront",
+              "type_match": true,
+              "detected_priority": 490,
+              "expected_priority": 490,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 29,
+              "match_length": 29
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "arn": {
+          "priority": 500,
+          "expected_type": "arn",
+          "sample_results": [
+            {
+              "sample": "arn:aws:s3:::my-bucket",
+              "detected": true,
+              "detected_type": "arn",
+              "expected_type": "arn",
+              "type_match": true,
+              "detected_priority": 500,
+              "expected_priority": 500,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 22,
+              "match_length": 22
+            },
+            {
+              "sample": "arn:aws:ec2:us-east-1:123456789012:instance/i-1234567890abcdef0",
+              "detected": true,
+              "detected_type": "arn",
+              "expected_type": "arn",
+              "type_match": true,
+              "detected_priority": 500,
+              "expected_priority": 500,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 63,
+              "match_length": 63
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "s3_bucket": {
+          "priority": 500,
+          "expected_type": "s3",
+          "sample_results": [
+            {
+              "sample": "my-production-bucket",
+              "detected": true,
+              "detected_type": "s3",
+              "expected_type": "s3",
+              "type_match": true,
+              "detected_priority": 500,
+              "expected_priority": 500,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 20,
+              "match_length": 20
+            },
+            {
+              "sample": "company-data-lake-2024",
+              "detected": true,
+              "detected_type": "s3",
+              "expected_type": "s3",
+              "type_match": true,
+              "detected_priority": 500,
+              "expected_priority": 500,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 12,
+              "match_length": 12
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "account_id": {
+          "priority": 600,
+          "expected_type": "account",
+          "sample_results": [
+            {
+              "sample": "123456789012",
+              "detected": true,
+              "detected_type": "account",
+              "expected_type": "account",
+              "type_match": true,
+              "detected_priority": 600,
+              "expected_priority": 600,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 12,
+              "match_length": 12
+            },
+            {
+              "sample": "987654321098",
+              "detected": true,
+              "detected_type": "account",
+              "expected_type": "account",
+              "type_match": true,
+              "detected_priority": 600,
+              "expected_priority": 600,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 12,
+              "match_length": 12
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "session_token": {
+          "priority": 610,
+          "expected_type": "session_token",
+          "sample_results": [
+            {
+              "sample": "AQoEXAMPLEH4aoAH0gNCAPyJxz4BlCFFxWNE1OPTgk5TthT+FvwqnKwRcOIfrRh3c/LTo6UDdyJwOOvEVPvLXCrrrUtdnniCEXAMPLE",
+              "detected": true,
+              "detected_type": "session_token",
+              "expected_type": "session_token",
+              "type_match": true,
+              "detected_priority": 610,
+              "expected_priority": 610,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 103,
+              "match_length": 103
+            },
+            {
+              "sample": "FwoGZXIvYXdzEBQaDGg3S1NnVGZjZ1ZGOyKKASEMAMPLEsessiontokenexample1234567890",
+              "detected": true,
+              "detected_type": "session_token",
+              "expected_type": "session_token",
+              "type_match": true,
+              "detected_priority": 610,
+              "expected_priority": 610,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 74,
+              "match_length": 74
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "secret_key": {
+          "priority": 620,
+          "expected_type": "secret_key",
+          "sample_results": [
+            {
+              "sample": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+              "detected": true,
+              "detected_type": "secret_key",
+              "expected_type": "secret_key",
+              "type_match": true,
+              "detected_priority": 620,
+              "expected_priority": 620,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 40,
+              "match_length": 40
+            },
+            {
+              "sample": "1234567890abcdef1234567890abcdef12345678",
+              "detected": true,
+              "detected_type": "secret_key",
+              "expected_type": "secret_key",
+              "type_match": true,
+              "detected_priority": 620,
+              "expected_priority": 620,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 40,
+              "match_length": 40
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        },
+        "cloudfront_distribution": {
+          "priority": 650,
+          "expected_type": "cloudfront_distribution",
+          "sample_results": [
+            {
+              "sample": "E1234567890123",
+              "detected": true,
+              "detected_type": "cloudfront_distribution",
+              "expected_type": "cloudfront_distribution",
+              "type_match": true,
+              "detected_priority": 650,
+              "expected_priority": 650,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 14,
+              "match_length": 14
+            },
+            {
+              "sample": "EABCDEF123456789",
+              "detected": true,
+              "detected_type": "cloudfront_distribution",
+              "expected_type": "cloudfront_distribution",
+              "type_match": true,
+              "detected_priority": 650,
+              "expected_priority": 650,
+              "priority_match": true,
+              "match_start": 0,
+              "match_end": 14,
+              "match_length": 14
+            }
+          ],
+          "all_samples_passed": true,
+          "detection_rate": 100.0
+        }
+      },
+      "summary": {
+        "successful_patterns": 52,
+        "total_patterns": 56,
+        "success_rate": 92.85714285714286,
+        "total_samples_tested": 116
+      }
+    },
+    "conflict_resolution": {
+      "conflict_resolution_results": {
+        "lambda_vs_arn": {
+          "description": "Lambda ARN vs 일반 ARN 충돌",
+          "text": "arn:aws:lambda:us-east-1:123456789012:function:ProcessPayment",
+          "matches_found": 1,
+          "matches": [
+            {
+              "match": "arn:aws:lambda:us-east-1:123456789012:function:ProcessPayment",
+              "type": "lambda",
+              "priority": 100,
+              "start": 0,
+              "end": 61
+            }
+          ],
+          "success": true
+        },
+        "account_id_in_arn": {
+          "description": "ARN 내부 Account ID 충돌",
+          "text": "Resource: arn:aws:s3:::my-bucket with account 123456789012",
+          "matches_found": 2,
+          "matches": [
+            {
+              "match": "arn:aws:s3:::my-bucket",
+              "type": "arn",
+              "priority": 500,
+              "start": 10,
+              "end": 32
+            },
+            {
+              "match": "123456789012",
+              "type": "account",
+              "priority": 600,
+              "start": 46,
+              "end": 58
+            }
+          ],
+          "success": false
+        },
+        "vpc_and_subnet": {
+          "description": "VPC와 Subnet 동시 존재",
+          "text": "VPC vpc-12345678 has subnet subnet-12345678901234567",
+          "matches_found": 2,
+          "matches": [
+            {
+              "match": "subnet-12345678901234567",
+              "type": "subnet",
+              "priority": 220,
+              "start": 28,
+              "end": 52
+            },
+            {
+              "match": "vpc-12345678",
+              "type": "vpc",
+              "priority": 230,
+              "start": 4,
+              "end": 16
+            }
+          ],
+          "success": true
+        },
+        "multiple_ips": {
+          "description": "다중 Public IP 충돌",
+          "text": "Connect from 203.0.113.12 to 198.51.100.45 via 8.8.8.8",
+          "matches_found": 3,
+          "matches": [
+            {
+              "match": "203.0.113.12",
+              "type": "public_ip",
+              "priority": 460,
+              "start": 13,
+              "end": 25
+            },
+            {
+              "match": "198.51.100.45",
+              "type": "public_ip",
+              "priority": 460,
+              "start": 29,
+              "end": 42
+            },
+            {
+              "match": "8.8.8.8",
+              "type": "public_ip",
+              "priority": 460,
+              "start": 47,
+              "end": 54
+            }
+          ],
+          "success": true
+        },
+        "complex_infrastructure": {
+          "description": "복합 인프라 시나리오",
+          "text": "\n                Deploy to ECS cluster with:\n                - Lambda: arn:aws:lambda:us-east-1:123456789012:function:API\n                - VPC: vpc-12345678\n                - Subnet: subnet-12345678901234567\n                - Instance: i-0123456789abcdef0\n                - IP: 203.0.113.12\n                - Account: 123456789012\n                ",
+          "matches_found": 6,
+          "matches": [
+            {
+              "match": "arn:aws:lambda:us-east-1:123456789012:function:API",
+              "type": "lambda",
+              "priority": 100,
+              "start": 71,
+              "end": 121
+            },
+            {
+              "match": "subnet-12345678901234567",
+              "type": "subnet",
+              "priority": 220,
+              "start": 184,
+              "end": 208
+            },
+            {
+              "match": "vpc-12345678",
+              "type": "vpc",
+              "priority": 230,
+              "start": 145,
+              "end": 157
+            },
+            {
+              "match": "i-0123456789abcdef0",
+              "type": "ec2",
+              "priority": 260,
+              "start": 237,
+              "end": 256
+            },
+            {
+              "match": "203.0.113.12",
+              "type": "public_ip",
+              "priority": 460,
+              "start": 279,
+              "end": 291
+            },
+            {
+              "match": "123456789012",
+              "type": "account",
+              "priority": 600,
+              "start": 319,
+              "end": 331
+            }
+          ],
+          "success": true
+        }
+      },
+      "summary": {
+        "successful_scenarios": 4,
+        "total_scenarios": 5,
+        "success_rate": 80.0
+      }
+    },
+    "masking_cycles": {
+      "masking_cycle_results": {
+        "simple_lambda": {
+          "original_length": 77,
+          "masked_length": 34,
+          "resources_masked": 1,
+          "mapping": {
+            "AWS_LAMBDA_ARN_001": "arn:aws:lambda:us-east-1:123456789012:function:ProcessPayment"
+          },
+          "is_perfect_cycle": true,
+          "mask_time_ms": 0.07,
+          "unmask_time_ms": 0.0,
+          "original_sample": "Deploy function arn:aws:lambda:us-east-1:123456789012:function:ProcessPayment",
+          "masked_sample": "Deploy function AWS_LAMBDA_ARN_001"
+        },
+        "multi_resource": {
+          "original_length": 290,
+          "masked_length": 249,
+          "resources_masked": 5,
+          "mapping": {
+            "AWS_ACCOUNT_001": "123456789012",
+            "AWS_VPC_001": "vpc-12345678",
+            "AWS_S3_BUCKET_001": "my-production-bucket",
+            "AWS_EC2_001": "i-0123456789abcdef0",
+            "AWS_LAMBDA_ARN_002": "arn:aws:lambda:us-east-1:123456789012:function:API"
+          },
+          "is_perfect_cycle": true,
+          "mask_time_ms": 0.14,
+          "unmask_time_ms": 0.0,
+          "original_sample": "\n                Infrastructure setup:\n                - Lambda: arn:aws:lambda:us-east-1:123456789012:function:API\n                - EC2: i-0123456789abcdef0\n                - S3: my-production-bucke...",
+          "masked_sample": "\n                Infrastructure setup:\n                - Lambda: AWS_LAMBDA_ARN_002\n                - EC2: AWS_EC2_001\n                - S3: AWS_S3_BUCKET_001\n                - VPC: AWS_VPC_001\n      ..."
+        },
+        "complex_scenario": {
+          "original_length": 723,
+          "masked_length": 561,
+          "resources_masked": 8,
+          "mapping": {
+            "AWS_PUBLIC_IP_001": "203.0.113.12",
+            "AWS_CERT_ARN_001": "arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012",
+            "AWS_SSM_PARAM_001": "/prod",
+            "AWS_SSM_PARAM_002": "//abc123def",
+            "AWS_SSM_PARAM_003": "/aws/lambda/UserAuth",
+            "AWS_VPC_001": "vpc-12345678",
+            "AWS_ELB_ARN_001": "arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/app/api-lb/50dc6c495c0c9188",
+            "AWS_LAMBDA_ARN_003": "arn:aws:lambda:us-east-1:123456789012:function:UserAuth"
+          },
+          "is_perfect_cycle": true,
+          "mask_time_ms": 0.4,
+          "unmask_time_ms": 0.01,
+          "original_sample": "\n                Production deployment checklist:\n                1. Update Lambda function arn:aws:lambda:us-east-1:123456789012:function:UserAuth\n                2. Configure ELB arn:aws:elasticload...",
+          "masked_sample": "\n                Production deployment checklist:\n                1. Update Lambda function AWS_LAMBDA_ARN_003\n                2. Configure ELB AWS_ELB_ARN_001\n                3. Verify RDS instance m..."
+        },
+        "sensitive_data": {
+          "original_length": 374,
+          "masked_length": 247,
+          "resources_masked": 4,
+          "mapping": {
+            "AWS_KMS_KEY_001": "12345678-1234-1234-1234-123456789012",
+            "AWS_SESSION_TOKEN_001": "AQoEXAMPLEH4aoAH0gNCAPyJxz4BlCFFxWNE1OPTgk5TthT+FvwqnKwRcOIfrRh3c/LTo6UDdyJwOOvEVPvLXCrrrUtdnniCEXAMPLE",
+            "AWS_SECRET_KEY_001": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+            "AWS_ACCESS_KEY_001": "AKIA1234567890ABCDEF"
+          },
+          "is_perfect_cycle": true,
+          "mask_time_ms": 0.16,
+          "unmask_time_ms": 0.0,
+          "original_sample": "\n                Access configuration:\n                - Access Key: AKIA1234567890ABCDEF\n                - Secret Key: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY\n                - Session Token: AQoEXA...",
+          "masked_sample": "\n                Access configuration:\n                - Access Key: AWS_ACCESS_KEY_001\n                - Secret Key: AWS_SECRET_KEY_001\n                - Session Token: AWS_SESSION_TOKEN_001\n        ..."
+        }
+      },
+      "summary": {
+        "successful_cycles": 4,
+        "total_cycles": 4,
+        "success_rate": 100.0
+      }
+    }
+  },
+  "production_readiness": {
+    "pattern_coverage": "PASS",
+    "conflict_handling": "PASS",
+    "masking_reliability": "PASS",
+    "overall_status": "PRODUCTION_READY"
+  },
+  "performance_metrics": {
+    "total_masking_time_ms": 0.77,
+    "total_unmasking_time_ms": 0.01,
+    "average_cycle_time_ms": 0.2
+  },
+  "issues_and_recommendations": {
+    "failed_patterns": [
+      "insights_query",
+      "api_gateway",
+      "kms_key",
+      "cloudwatch_log"
+    ],
+    "recommendations": [
+      "✅ 모든 검증 항목이 기준을 통과했습니다. 프로덕션 배포 준비 완료!"
+    ]
+  }
+}

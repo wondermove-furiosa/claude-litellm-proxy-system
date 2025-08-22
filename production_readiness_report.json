@@ -1,0 +1,137 @@
+{
+  "overall_score": 100.0,
+  "status": "🟢 PRODUCTION_READY",
+  "recommendation": "프로덕션 배포 준비 완료",
+  "details": {
+    "patterns": {
+      "working_patterns": [
+        {
+          "pattern": "lambda_arn",
+          "sample": "arn:aws:lambda:us-east-1:123456789012:function:ProcessPayment",
+          "detected_types": [
+            "lambda"
+          ],
+          "status": "working"
+        },
+        {
+          "pattern": "vpc",
+          "sample": "vpc-12345678",
+          "detected_types": [
+            "vpc"
+          ],
+          "status": "working"
+        },
+        {
+          "pattern": "ec2_instance",
+          "sample": "i-0123456789abcdef0",
+          "detected_types": [
+            "ec2"
+          ],
+          "status": "working"
+        },
+        {
+          "pattern": "s3_bucket",
+          "sample": "my-production-bucket",
+          "detected_types": [
+            "s3"
+          ],
+          "status": "working"
+        },
+        {
+          "pattern": "access_key",
+          "sample": "AKIA1234567890ABCDEF",
+          "detected_types": [
+            "access_key"
+          ],
+          "status": "working"
+        },
+        {
+          "pattern": "secret_key",
+          "sample": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+          "detected_types": [
+            "secret_key"
+          ],
+          "status": "working"
+        },
+        {
+          "pattern": "account_id",
+          "sample": "123456789012",
+          "detected_types": [
+            "account"
+          ],
+          "status": "working"
+        },
+        {
+          "pattern": "public_ip",
+          "sample": "8.8.8.8",
+          "detected_types": [
+            "public_ip"
+          ],
+          "status": "working"
+        },
+        {
+          "pattern": "kms_key",
+          "sample": "12345678-1234-1234-1234-123456789012",
+          "detected_types": [
+            "kms"
+          ],
+          "status": "working"
+        },
+        {
+          "pattern": "subnet",
+          "sample": "subnet-12345678901234567",
+          "detected_types": [
+            "subnet"
+          ],
+          "status": "working"
+        }
+      ],
+      "failed_patterns": [],
+      "coverage_rate": 100.0
+    },
+    "e2e": {
+      "scenarios": [
+        {
+          "scenario": "간단한 Lambda",
+          "original_length": 64,
+          "masked_length": 25,
+          "mappings_count": 1,
+          "is_consistent": true,
+          "status": "success"
+        },
+        {
+          "scenario": "복합 인프라",
+          "original_length": 89,
+          "masked_length": 78,
+          "mappings_count": 3,
+          "is_consistent": true,
+          "status": "success"
+        },
+        {
+          "scenario": "보안 리소스",
+          "original_length": 86,
+          "masked_length": 66,
+          "mappings_count": 2,
+          "is_consistent": true,
+          "status": "success"
+        },
+        {
+          "scenario": "네트워킹",
+          "original_length": 74,
+          "masked_length": 69,
+          "mappings_count": 2,
+          "is_consistent": true,
+          "status": "success"
+        }
+      ],
+      "success_rate": 100.0
+    },
+    "performance": {
+      "mask_time_ms": 3.2639503479003906,
+      "unmask_time_ms": 1.6028881072998047,
+      "batch_avg_time_ms": 0.8221817016601562,
+      "requests_per_second": 1216.276156451538,
+      "performance_ok": true
+    }
+  }
+}
