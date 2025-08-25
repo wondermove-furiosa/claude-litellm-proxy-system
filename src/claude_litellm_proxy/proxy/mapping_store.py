@@ -213,6 +213,24 @@ class MappingStore:
         if all_keys:
             await redis_client.delete(*all_keys)
     
+    async def get_next_counter(self, resource_type: str) -> int:
+        """
+        리소스 타입별 유일 카운터 생성 (Redis INCR 사용)
+        
+        Args:
+            resource_type: AWS 리소스 타입 (예: "eks", "sagemaker")
+            
+        Returns:
+            유일한 카운터 값
+        """
+        try:
+            redis_client = await self._get_redis()
+            counter_key = f"counter:{resource_type}"
+            counter_value = await redis_client.incr(counter_key)
+            return counter_value
+        except Exception as e:
+            raise Exception(f"Redis counter generation failed: {e}")
+    
     async def close(self) -> None:
         """Redis 연결 종료"""
         if self._redis:

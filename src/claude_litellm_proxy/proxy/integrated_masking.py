@@ -39,8 +39,8 @@ class IntegratedMaskingSystem:
             redis_db: Redis 데이터베이스 번호
             redis_password: Redis 비밀번호 (선택)
         """
-        # 마스킹 엔진 초기화
-        self.masking_engine = MaskingEngine()
+        # 마스킹 엔진 초기화 (mapping_store 주입)
+        self.masking_engine = MaskingEngine(mapping_store=None)  # 일단 None으로 초기화
         
         # Redis 매핑 저장소 초기화
         self.mapping_store = MappingStore(
@@ -66,30 +66,16 @@ class IntegratedMaskingSystem:
         
         # 1. 기존 매핑이 있는지 Redis에서 확인
         existing_mappings = await self._get_existing_mappings_for_text(text)
+        if existing_mappings:
+            print(f"[DEBUG] 기존 매핑 {len(existing_mappings)}개 발견: {existing_mappings}")
         
-        # 2. 마스킹 엔진으로 처리
-        masked_text, new_mappings = self.masking_engine.mask_text(text)
+        # 2. Redis 기반 직접 마스킹 처리 (기존 매핑 활용)
+        masked_text, final_mappings = await self._mask_text_with_redis_counter(text, existing_mappings)
         
-        # 3. 새로운 매핑만 Redis에 저장
-        mappings_to_save = {}
-        final_mappings = {}
+        if final_mappings:
+            print(f"[DEBUG] 최종 매핑 {len(final_mappings)}개 생성: {final_mappings}")
         
-        for masked_val, original_val in new_mappings.items():
-            # 기존 매핑이 있으면 재사용
-            existing_masked = await self.mapping_store.get_masked(original_val)
-            if existing_masked:
-                # 텍스트에서 새 마스킹 값을 기존 값으로 교체
-                masked_text = masked_text.replace(masked_val, existing_masked)
-                final_mappings[existing_masked] = original_val
-            else:
-                # 새로운 매핑 저장 필요
-                mappings_to_save[masked_val] = original_val
-                final_mappings[masked_val] = original_val
-        
-        # 4. 새로운 매핑 Redis에 저장
-        if mappings_to_save:
-            await self.mapping_store.save_batch(mappings_to_save, ttl=ttl)
-        
+        # 매핑은 이미 _mask_text_with_redis_counter에서 저장됨
         return masked_text, final_mappings
     
     async def unmask_text(self, masked_text: str) -> str:
@@ -105,22 +91,112 @@ class IntegratedMaskingSystem:
         if not masked_text:
             return masked_text or ""
         
+        print(f"[DEBUG] 언마스킹 대상 텍스트: {masked_text[:200]}...")
+        
         # Redis에서 매핑 정보 조회하여 복원
         unmasked_text = masked_text
         
-        # 마스킹 패턴 찾기 (간단한 구현)
-        words = masked_text.split()
+        # 정규식을 사용하여 AWS 마스킹 패턴 찾기
+        import re
+        aws_pattern = r'AWS_[A-Z_]+_\d{3}'
+        matches = re.finditer(aws_pattern, masked_text)
         
-        for word in words:
-            # 구두점 제거하여 정확한 매칭
-            clean_word = word.strip('.,!?:;"')
+        # 뒤에서부터 치환 (인덱스 변화 방지)
+        replacements = []
+        for match in matches:
+            masked_token = match.group()
+            start, end = match.span()
+            replacements.append((start, end, masked_token))
+        
+        # 뒤에서부터 처리
+        replacements.sort(key=lambda x: x[0], reverse=True)
+        
+        for start, end, masked_token in replacements:
+            print(f"[DEBUG] 언마스킹 시도: '{masked_token}'")
             
             # Redis에서 원본 값 조회
-            original = await self.mapping_store.get_original(clean_word)
+            original = await self.mapping_store.get_original(masked_token)
             if original:
-                unmasked_text = unmasked_text.replace(clean_word, original)
+                print(f"[DEBUG] 언마스킹 성공: {masked_token} -> {original}")
+                unmasked_text = unmasked_text[:start] + original + unmasked_text[end:]
+            else:
+                print(f"[DEBUG] 언마스킹 실패: {masked_token} (Redis에서 찾을 수 없음)")
         
         return unmasked_text
+    
+    async def _mask_text_with_redis_counter(self, text: str, existing_mappings: Optional[Dict[str, str]] = None) -> tuple[str, Dict[str, str]]:
+        """
+        Redis 기반 유일 카운터를 사용한 마스킹
+        
+        Args:
+            text: 마스킹할 텍스트
+            existing_mappings: 기존 매핑 정보 (중복 Redis 조회 방지)
+            
+        Returns:
+            (마스킹된_텍스트, 매핑_정보)
+        """
+        if not text:
+            return text or "", {}
+        
+        # 1. AWS 패턴 찾기
+        matches = self.masking_engine.patterns.find_matches(text)
+        if not matches:
+            return text, {}
+        
+        masked_text = text
+        mappings = {}
+        
+        # 뒤에서부터 처리 (인덱스 변화 방지)
+        matches.sort(key=lambda x: x["start"], reverse=True)
+        
+        for match in matches:
+            original = match["match"]
+            pattern_def = match["pattern_def"]
+            print(f"[DEBUG] 처리 중인 원본: {original} (타입: {pattern_def.type})")
+            
+            # 2. 기존 매핑 확인 (existing_mappings 우선 사용)
+            existing_masked = None
+            if existing_mappings:
+                # 기존 매핑에서 찾기
+                for masked_key, original_val in existing_mappings.items():
+                    if original_val == original:
+                        existing_masked = masked_key
+                        print(f"[DEBUG] 기존 매핑에서 발견: {original} → {existing_masked}")
+                        break
+            
+            # 기존 매핑에 없으면 Redis에서 직접 조회
+            if not existing_masked:
+                existing_masked = await self.mapping_store.get_masked(original)
+                if existing_masked:
+                    print(f"[DEBUG] Redis에서 발견: {original} → {existing_masked}")
+            
+            if existing_masked:
+                # 기존 매핑 재사용
+                masked_value = existing_masked
+                mappings[masked_value] = original
+                print(f"[DEBUG] 기존 매핑 재사용: {original} → {masked_value}")
+            else:
+                # 3. Redis 기반 유일 카운터로 새 ID 생성
+                counter_value = await self.mapping_store.get_next_counter(pattern_def.type)
+                print(f"[DEBUG] 새 카운터 생성: {pattern_def.type} → {counter_value}")
+                
+                # 4. 마스킹 값 생성
+                try:
+                    masked_value = pattern_def.replacement.format(counter_value)
+                except (ValueError, KeyError):
+                    masked_value = f"{pattern_def.type.upper()}_{counter_value:03d}"
+                
+                print(f"[DEBUG] 새 매핑 생성: {original} → {masked_value}")
+                
+                # 5. Redis에 매핑 저장
+                await self.mapping_store.save_mapping(masked_value, original)
+                mappings[masked_value] = original
+            
+            # 6. 텍스트에서 교체
+            start, end = match["start"], match["end"]
+            masked_text = masked_text[:start] + masked_value + masked_text[end:]
+        
+        return masked_text, mappings
     
     async def get_original_from_redis(self, masked: str) -> Optional[str]:
         """Redis에서 직접 원본 값 조회 (테스트용)"""

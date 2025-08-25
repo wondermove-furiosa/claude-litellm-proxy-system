@@ -1,0 +1,88 @@
+{
+  "timestamp": 1756094071.5866292,
+  "total_tests": 13,
+  "passed_tests": 13,
+  "failed_tests": 0,
+  "success_rate": 100.0,
+  "overall_status": "VERIFIED",
+  "test_results": [
+    {
+      "test": "Component masking_engine",
+      "status": "PASS",
+      "details": "Status: healthy",
+      "timestamp": 1756094066.6188679
+    },
+    {
+      "test": "Component redis_connection",
+      "status": "PASS",
+      "details": "Status: healthy",
+      "timestamp": 1756094066.618878
+    },
+    {
+      "test": "Component litellm_client",
+      "status": "PASS",
+      "details": "Status: healthy",
+      "timestamp": 1756094066.618879
+    },
+    {
+      "test": "Masking EKS Cluster",
+      "status": "PASS",
+      "details": "Masked: AWS_EKS_CLUSTER_001",
+      "timestamp": 1756094066.625778
+    },
+    {
+      "test": "Masking SageMaker Endpoint",
+      "status": "PASS",
+      "details": "Masked: AWS_SAGEMAKER_001",
+      "timestamp": 1756094066.6258419
+    },
+    {
+      "test": "Masking ECS Task",
+      "status": "PASS",
+      "details": "Masked: AWS_ECS_TASK_001",
+      "timestamp": 1756094066.625901
+    },
+    {
+      "test": "Masking API Gateway",
+      "status": "PASS",
+      "details": "Masked: AWS_API_GW_001.execute-api.",
+      "timestamp": 1756094066.6259441
+    },
+    {
+      "test": "Masking Session Token",
+      "status": "PASS",
+      "details": "Masked: AWS_SESSION_TOKEN_001",
+      "timestamp": 1756094066.6259751
+    },
+    {
+      "test": "Claude API Call",
+      "status": "PASS",
+      "details": "Response time: 1.941s",
+      "timestamp": 1756094068.567221
+    },
+    {
+      "test": "Response Quality",
+      "status": "PASS",
+      "details": "Content length: 974",
+      "timestamp": 1756094068.567232
+    },
+    {
+      "test": "Unmasking Success",
+      "status": "PASS",
+      "details": "No masking patterns in response",
+      "timestamp": 1756094068.567244
+    },
+    {
+      "test": "Claude Understanding",
+      "status": "PASS",
+      "details": "Claude understood AWS context",
+      "timestamp": 1756094068.56725
+    },
+    {
+      "test": "Redis Connection",
+      "status": "PASS",
+      "details": "Redis connectivity confirmed",
+      "timestamp": 1756094071.586468
+    }
+  ]
+}

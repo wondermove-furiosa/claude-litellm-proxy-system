@@ -18,10 +18,10 @@ class MaskingEngine:
     예: AKIA1234567890ABCDEF → iam-01
     """
 
-    def __init__(self) -> None:
+    def __init__(self, mapping_store=None) -> None:
         """마스킹 엔진 초기화"""
         self.patterns = CloudPatterns()
-        self._counter: Dict[str, int] = {}  # 각 타입별 카운터
+        self.mapping_store = mapping_store  # Redis 기반 카운터용
         self._mapping_cache: Dict[str, str] = {}  # 원본 → 마스킹 매핑
         self._reverse_mapping: Dict[str, str] = {}  # 마스킹 → 원본 매핑
 
@@ -90,8 +90,13 @@ class MaskingEngine:
         Returns:
             마스킹된 값 (예: "iam-01")
         """
-        # 타입별 카운터 증가
+        # 타입별 카운터 증가 (로컬 - 제거 예정)
         resource_type = pattern_def.type
+        
+        # TODO: Redis 기반 유일 카운터로 변경 필요
+        # 현재는 기존 로직 유지 (IntegratedMaskingSystem에서 처리)
+        if not hasattr(self, '_counter'):
+            self._counter = {}
         if resource_type not in self._counter:
             self._counter[resource_type] = 0
 

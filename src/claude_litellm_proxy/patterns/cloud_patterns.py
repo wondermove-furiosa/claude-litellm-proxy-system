@@ -207,12 +207,12 @@ class CloudPatterns:
                 priority=100,
             ),
             
-            # ECS Task Definition ARN (Priority 105)
+            # ECS Task ARN (Priority 105) - ref-masking-rule.md 준수  
             "ecs_task": PatternDefinition(
-                pattern=r"arn:aws:ecs:[a-z0-9\-]+:\d+:task-definition/[a-zA-Z0-9\-_]+:[0-9]+",
+                pattern=r"arn:aws:ecs:[a-z0-9\-]+:\d+:task/[a-zA-Z0-9\-_/]+",
                 replacement="AWS_ECS_TASK_{:03d}",
                 type="ecs",
-                description="ECS Task Definition ARN",
+                description="ECS Task ARN",
                 priority=105,
             ),
             
@@ -243,13 +243,13 @@ class CloudPatterns:
                 priority=120,
             ),
             
-            # KMS Key ID (Priority 370)
+            # KMS Key ID (Priority 125) - ref-masking-rule.md 준수
             "kms_key": PatternDefinition(
                 pattern=r"[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}",
                 replacement="AWS_KMS_KEY_{:03d}",
                 type="kms",
                 description="KMS Key ID (UUID format)",
-                priority=370,
+                priority=125,
             ),
             
             # Certificate ARN (Priority 130)
@@ -270,97 +270,115 @@ class CloudPatterns:
                 priority=135,
             ),
             
+            # Parameter Store ARN (Priority 140) - ref-masking-rule.md 추가
+            "param_store_arn": PatternDefinition(
+                pattern=r"arn:aws:ssm:[a-z0-9\-]+:\d+:parameter/[a-zA-Z0-9\-_/]+",
+                replacement="AWS_PARAM_ARN_{:03d}",
+                type="param_store",
+                description="Parameter Store ARN",
+                priority=140,
+            ),
             
-            # DynamoDB Table ARN (Priority 145)
+            
+            # DynamoDB Table ARN (Priority 150) - ref-masking-rule.md 준수
             "dynamodb_table": PatternDefinition(
                 pattern=r"arn:aws:dynamodb:[a-z0-9\-]+:\d+:table/[a-zA-Z0-9\-_.]+",
                 replacement="AWS_DYNAMODB_TABLE_{:03d}",
                 type="dynamodb",
                 description="DynamoDB Table ARN",
-                priority=145,
+                priority=150,
             ),
             
-            # SNS Topic ARN (Priority 125)
+            # SNS Topic ARN (Priority 155) - ref-masking-rule.md 준수
             "sns_topic": PatternDefinition(
                 pattern=r"arn:aws:sns:[a-z0-9\-]+:\d+:[a-zA-Z0-9\-_]+",
                 replacement="AWS_SNS_TOPIC_{:03d}",
                 type="sns",
                 description="SNS Topic ARN",
-                priority=125,
+                priority=155,
             ),
             
-            # SQS Queue URL (Priority 140)
+            # SQS Queue URL (Priority 160) - ref-masking-rule.md 준수
             "sqs_queue": PatternDefinition(
                 pattern=r"https://sqs\.[a-z0-9\-]+\.amazonaws\.com/\d+/[a-zA-Z0-9\-_]+",
                 replacement="AWS_SQS_QUEUE_{:03d}",
                 type="sqs",
                 description="SQS Queue URL",
-                priority=140,
+                priority=160,
             ),
             
             
-            # Kinesis Stream ARN (Priority 150)
+            # Kinesis Stream ARN (Priority 170) - ref-masking-rule.md 준수
             "kinesis_stream": PatternDefinition(
                 pattern=r"arn:aws:kinesis:[a-z0-9\-]+:\d+:stream/[a-zA-Z0-9\-_.]+",
                 replacement="AWS_KINESIS_{:03d}",
                 type="kinesis",
                 description="Kinesis Stream ARN",
-                priority=150,
+                priority=170,
             ),
             
             
-            # Step Functions State Machine ARN (Priority 155)
+            # ElasticSearch Domain ARN (Priority 175) - ref-masking-rule.md 추가
+            "elasticsearch_domain": PatternDefinition(
+                pattern=r"arn:aws:es:[a-z0-9\-]+:\d+:domain/[a-zA-Z0-9\-_]+",
+                replacement="AWS_ES_DOMAIN_{:03d}",
+                type="elasticsearch",
+                description="ElasticSearch Domain ARN",
+                priority=175,
+            ),
+            
+            # Step Functions State Machine ARN (Priority 180) - ref-masking-rule.md 준수
             "stepfunctions_arn": PatternDefinition(
                 pattern=r"arn:aws:states:[a-z0-9\-]+:\d+:stateMachine:[a-zA-Z0-9\-_]+",
                 replacement="AWS_STEP_FN_{:03d}",
                 type="stepfunctions",
                 description="Step Functions State Machine ARN",
-                priority=155,
+                priority=180,
             ),
             
-            # AWS Batch Job Queue ARN (Priority 160)
+            # AWS Batch Job Queue ARN (Priority 185) - ref-masking-rule.md 준수
             "batch_job": PatternDefinition(
                 pattern=r"arn:aws:batch:[a-z0-9\-]+:\d+:job-queue/[a-zA-Z0-9\-_]+",
                 replacement="AWS_BATCH_QUEUE_{:03d}",
                 type="batch",
                 description="Batch Job Queue ARN",
-                priority=160,
+                priority=185,
             ),
             
-            # Glue Job ARN (Priority 165)
+            # Glue Job Name (Priority 560) - ref-masking-rule.md 준수
             "glue_job": PatternDefinition(
-                pattern=r"arn:aws:glue:[a-z0-9\-]+:\d+:job/[a-zA-Z0-9\-_]+",
+                pattern=r"glue-job-[a-zA-Z0-9\-_]+",
                 replacement="AWS_GLUE_JOB_{:03d}",
                 type="glue",
-                description="Glue Job ARN",
-                priority=165,
+                description="Glue Job Name",
+                priority=560,
             ),
             
-            # SageMaker Endpoint ARN (Priority 170)
+            # SageMaker Endpoint (Priority 195) - 우선순위 조정으로 ARN fallback보다 먼저 처리
             "sagemaker_endpoint": PatternDefinition(
                 pattern=r"arn:aws:sagemaker:[a-z0-9\-]+:\d+:endpoint/[a-zA-Z0-9\-_]+",
                 replacement="AWS_SAGEMAKER_{:03d}",
                 type="sagemaker",
                 description="SageMaker Endpoint ARN",
-                priority=170,
+                priority=195,
             ),
             
-            # Athena Workgroup ARN (Priority 175)
+            # Athena Workgroup ARN (Priority 190) - ref-masking-rule.md 준수
             "athena_workgroup": PatternDefinition(
                 pattern=r"arn:aws:athena:[a-z0-9\-]+:\d+:workgroup/[a-zA-Z0-9\-_]+",
                 replacement="AWS_ATHENA_{:03d}",
                 type="athena",
                 description="Athena Workgroup ARN",
-                priority=175,
+                priority=190,
             ),
             
-            # CodeCommit Repository ARN (Priority 180)
+            # CodeCommit Repository ARN (Priority 145) - ref-masking-rule.md 준수
             "codecommit_repo": PatternDefinition(
-                pattern=r"arn:aws:codecommit:[a-z0-9\-]+:\d+:repository/[a-zA-Z0-9\-_]+",
+                pattern=r"arn:aws:codecommit:[a-z0-9\-]+:\d+:[a-zA-Z0-9\-_]+",
                 replacement="AWS_CODECOMMIT_{:03d}",
                 type="codecommit",
                 description="CodeCommit Repository ARN",
-                priority=180,
+                priority=145,
             ),
             
             # CloudWatch Log Group ARN (Priority 185)
@@ -372,13 +390,13 @@ class CloudPatterns:
                 priority=185,
             ),
             
-            # CloudFormation Stack ARN (Priority 190)
+            # CloudFormation Stack ARN (Priority 165) - ref-masking-rule.md 준수
             "cloudformation_stack": PatternDefinition(
                 pattern=r"arn:aws:cloudformation:[a-z0-9\-]+:\d+:stack/[a-zA-Z0-9\-_]+/[a-f0-9\-]+",
                 replacement="AWS_CLOUDFORMATION_STACK_{:03d}",
                 type="cloudformation",
                 description="CloudFormation Stack ARN",
-                priority=190,
+                priority=165,
             ),
             
             # Priority 200-299: AWS 리소스 ID
@@ -421,135 +439,171 @@ class CloudPatterns:
             
             # Security Group ID (Priority 240)
             "security_group": PatternDefinition(
-                pattern=r"sg-[0-9a-f]{17}",
+                pattern=r"sg-[0-9a-f]{8}",
                 replacement="AWS_SECURITY_GROUP_{:03d}",
                 type="security_group",
-                description="Security group identifier",
+                description="Security group identifier (sg-xxxxxxxx format)",
                 priority=240,
             ),
             
-            # EC2 Instance ID (Priority 260)
+            # EC2 Instance ID (Priority 250) - ref-masking-rule.md 준수
             "ec2_instance": PatternDefinition(
                 pattern=r"i-[0-9a-f]{17}",
                 replacement="AWS_EC2_{:03d}",
                 type="ec2",
                 description="EC2 instance identifier",
-                priority=260,
-            ),
-            
-            # AMI ID (Priority 250)
-            "ami_id": PatternDefinition(
-                pattern=r"ami-[0-9a-f]{17}",
-                replacement="AWS_AMI_{:03d}",
-                type="ami",
-                description="AMI identifier",
                 priority=250,
             ),
             
-            # Snapshot ID (Priority 270)
-            "snapshot": PatternDefinition(
-                pattern=r"snap-[0-9a-f]{17}",
-                replacement="AWS_SNAPSHOT_{:03d}",
-                type="snapshot",
-                description="EBS Snapshot ID",
+            # AMI ID (Priority 260) - ref-masking-rule.md 준수
+            "ami_id": PatternDefinition(
+                pattern=r"ami-[0-9a-f]{8}",
+                replacement="AWS_AMI_{:03d}",
+                type="ami",
+                description="AMI identifier",
+                priority=260,
+            ),
+            
+            # EFS File System ID (Priority 270) - ref-masking-rule.md 준수
+            "efs_filesystem": PatternDefinition(
+                pattern=r"fs-[0-9a-f]{8}",
+                replacement="AWS_EFS_{:03d}",
+                type="efs",
+                description="EFS File System ID",
                 priority=270,
             ),
             
-            # Internet Gateway ID (Priority 280)
+            # Internet Gateway ID (Priority 280) - ref-masking-rule.md 준수
             "internet_gateway": PatternDefinition(
-                pattern=r"igw-[0-9a-f]{17}",
+                pattern=r"igw-[0-9a-f]{8}",
                 replacement="AWS_IGW_{:03d}",
                 type="igw",
                 description="Internet Gateway ID",
                 priority=280,
             ),
             
-            
-            # EFS File System ID (Priority 290)
-            "efs_filesystem": PatternDefinition(
-                pattern=r"fs-[0-9a-f]{17}",
-                replacement="AWS_EFS_{:03d}",
-                type="efs",
-                description="EFS File System ID",
-                priority=290,
+            # VPN Connection ID (Priority 285) - ref-masking-rule.md 추가
+            "vpn_connection": PatternDefinition(
+                pattern=r"vpn-[0-9a-f]{8}",
+                replacement="AWS_VPN_{:03d}",
+                type="vpn",
+                description="VPN Connection ID",
+                priority=285,
             ),
             
-            # RDS Instance ID (Priority 300)
-            "rds_instance": PatternDefinition(
-                pattern=r"[a-z][a-z0-9\-]*db[a-z0-9\-]*-[a-z0-9]{7}",
-                replacement="AWS_RDS_{:03d}",
-                type="rds",
-                description="RDS Instance ID",
-                priority=300,
-            ),
             
-            # ElastiCache Cluster ID (Priority 310)
-            "elasticache_cluster": PatternDefinition(
-                pattern=r"[a-z][a-z0-9\-]*-cluster-[0-9]{3}",
-                replacement="AWS_ELASTICACHE_{:03d}",
-                type="elasticache",
-                description="ElastiCache Cluster ID",
-                priority=310,
-            ),
-            
-            # Redshift Cluster ID (Priority 320)
-            "redshift_cluster": PatternDefinition(
-                pattern=r"[a-z][a-z0-9\-]*-cluster",
-                replacement="AWS_REDSHIFT_{:03d}",
-                type="redshift",
-                description="Redshift Cluster ID",
-                priority=320,
-            ),
-            
-            # Transit Gateway ID (Priority 330)
+            # Transit Gateway ID (Priority 290) - ref-masking-rule.md 준수
             "transit_gateway": PatternDefinition(
                 pattern=r"tgw-[0-9a-f]{17}",
                 replacement="AWS_TGW_{:03d}",
                 type="tgw",
                 description="Transit Gateway ID",
-                priority=330,
+                priority=290,
             ),
             
-            # Priority 300-399: 네트워크/API
+            # EBS Snapshot ID (Priority 295) - ref-masking-rule.md 준수
+            "snapshot": PatternDefinition(
+                pattern=r"snap-[0-9a-f]{17}",
+                replacement="AWS_SNAPSHOT_{:03d}",
+                type="snapshot",
+                description="EBS Snapshot ID",
+                priority=295,
+            ),
             
-            # API Gateway URL (Priority 320 - Higher than SSM parameters)
+            # S3 Logs Bucket (Priority 510) - ref-masking-rule.md 준수
+            "s3_bucket_logs": PatternDefinition(
+                pattern=r"[a-z0-9][a-z0-9\-]*logs[a-z0-9\-]*",
+                replacement="AWS_S3_LOGS_BUCKET_{:03d}",
+                type="s3_logs",
+                description="S3 bucket names containing 'logs'",
+                priority=510,
+            ),
+            
+            # RDS Instance (Priority 520) - ref-masking-rule.md 준수
+            "rds_instance": PatternDefinition(
+                pattern=r"[a-z\-]*db[a-z\-]*",
+                replacement="AWS_RDS_{:03d}",
+                type="rds",
+                description="RDS database names containing 'db'",
+                priority=520,
+            ),
+            
+            # ElastiCache Cluster (Priority 530) - ref-masking-rule.md 준수
+            "elasticache_cluster": PatternDefinition(
+                pattern=r"[a-z][a-z0-9\-]*-[0-9a-z]{5}-[0-9a-z]{3}",
+                replacement="AWS_ELASTICACHE_{:03d}",
+                type="elasticache",
+                description="ElastiCache Cluster ID",
+                priority=530,
+            ),
+            
+            # EKS Cluster ARN (Priority 185) - 우선순위 조정으로 ARN fallback보다 먼저 처리
+            "eks_cluster": PatternDefinition(
+                pattern=r"arn:aws:eks:[a-z0-9\-]+:\d+:cluster/[a-zA-Z0-9\-_]+",
+                replacement="AWS_EKS_CLUSTER_{:03d}",
+                type="eks",
+                description="EKS Cluster ARN",
+                priority=185,
+            ),
+            
+            # Redshift Cluster ID (Priority 550) - ref-masking-rule.md 준수
+            "redshift_cluster": PatternDefinition(
+                pattern=r"[a-z][a-z0-9\-]*-cluster",
+                replacement="AWS_REDSHIFT_{:03d}",
+                type="redshift",
+                description="Redshift Cluster ID",
+                priority=550,
+            ),
+            
+            # API Gateway ID (Priority 300) - ref-masking-rule.md 준수
             "api_gateway": PatternDefinition(
-                pattern=r"https://[a-z0-9]{10}\.execute-api\.[a-z0-9\-]+\.amazonaws\.com(?:/[a-zA-Z0-9\-_]+)?",
-                replacement="AWS_API_GW_{:03d}",
+                pattern=r"[a-z0-9]{10}\.execute-api\.[a-z0-9\-]+\.amazonaws\.com",
+                replacement="AWS_API_GW_{:03d}.execute-api.",
                 type="api_gateway",
-                description="API Gateway URL",
-                priority=320,
+                description="API Gateway ID (in execute-api context)",
+                priority=300,
             ),
             
-            # AWS Access Key ID (Priority 350)
+            # AWS Access Key ID (Priority 310) - ref-masking-rule.md 준수
             "access_key": PatternDefinition(
                 pattern=r"AKIA[0-9A-Z]{16}",
                 replacement="AWS_ACCESS_KEY_{:03d}",
                 type="access_key",
                 description="AWS Access Key ID",
-                priority=350,
+                priority=310,
             ),
             
-            # Route53 Hosted Zone ID (Priority 360)
+            # Route53 Hosted Zone ID (Priority 320) - ref-masking-rule.md 준수
             "route53_zone": PatternDefinition(
                 pattern=r"Z[0-9A-Z]{13,}",
                 replacement="AWS_ROUTE53_ZONE_{:03d}",
                 type="route53",
                 description="Route53 Hosted Zone ID",
-                priority=360,
+                priority=320,
             ),
             
+            # ECR Repository URI (Priority 330) - ref-masking-rule.md 추가
+            "ecr_repo_uri": PatternDefinition(
+                pattern=r"\d+\.dkr\.ecr\.[a-z0-9\-]+\.amazonaws\.com/[a-zA-Z0-9\-_]+",
+                replacement="AWS_ECR_URI_{:03d}",
+                type="ecr",
+                description="ECR Repository URI",
+                priority=330,
+            ),
             
-            # CloudWatch Log Group (Priority 390)
+            # CloudWatch Log Group (Priority 340) - ref-masking-rule.md 준수
             "cloudwatch_log": PatternDefinition(
                 pattern=r"/aws/[a-zA-Z0-9\-_/]+",
                 replacement="AWS_LOG_GROUP_{:03d}",
                 type="cloudwatch",
                 description="CloudWatch Log Group",
-                priority=390,
+                priority=340,
             ),
             
-            # SSM Parameter (Priority 380)
+            # Priority 300-399: 네트워크/API/보안 (ref-masking-rule.md 기준으로 재정렬 완료)
+            
+            
+            # SSM Parameter (Priority 380) - 추가 패턴 유지
             "ssm_parameter": PatternDefinition(
                 pattern=r"/[a-zA-Z0-9\-_/]+",
                 replacement="AWS_SSM_PARAM_{:03d}",
@@ -558,16 +612,7 @@ class CloudPatterns:
                 priority=380,
             ),
             
-            # S3 Logs Bucket (Priority 395)
-            "s3_bucket_logs": PatternDefinition(
-                pattern=r"[a-z0-9][a-z0-9\-]*logs[a-z0-9\-]*-[0-9]+",
-                replacement="AWS_S3_LOGS_BUCKET_{:03d}",
-                type="s3_logs",
-                description="S3 Logs bucket with date",
-                priority=395,
-            ),
-            
-            # CloudTrail ARN (Priority 399)
+            # CloudTrail ARN (Priority 399) - 추가 패턴 유지
             "cloudtrail_arn": PatternDefinition(
                 pattern=r"arn:aws:cloudtrail:[a-z0-9\-]+:\d+:trail/[a-zA-Z0-9\-_]+",
                 replacement="AWS_CLOUDTRAIL_{:03d}",
@@ -576,18 +621,19 @@ class CloudPatterns:
                 priority=399,
             ),
             
+            
             # Priority 400-499: IP/광범위 패턴
             
-            # IPv6 Pattern (Priority 470) - 더 정교한 패턴
+            # IPv6 Pattern (Priority 400) - ref-masking-rule.md 준수
             "ipv6": PatternDefinition(
                 pattern=r"\b([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}\b|\b([0-9a-fA-F]{1,4}:){1,7}:\b|\b([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}\b",
                 replacement="AWS_IPV6_{:03d}",
                 type="ipv6",
                 description="IPv6 Address (RFC 4291 compliant)",
-                priority=470,
+                priority=400,
             ),
             
-            # Elastic IP Allocation ID (Priority 480)
+            # Elastic IP Allocation ID (Priority 480) - 추가 패턴 유지
             "elastic_ip": PatternDefinition(
                 pattern=r"eipalloc-[0-9a-f]{17}",
                 replacement="AWS_ELASTIC_IP_{:03d}",
@@ -596,7 +642,7 @@ class CloudPatterns:
                 priority=480,
             ),
             
-            # CloudFront Domain (Priority 490)
+            # CloudFront Domain (Priority 490) - 추가 패턴 유지
             "cloudfront": PatternDefinition(
                 pattern=r"[a-z0-9]{13,14}\.cloudfront\.net",
                 replacement="AWS_CLOUDFRONT_DOMAIN_{:03d}",
@@ -626,12 +672,12 @@ class CloudPatterns:
                 priority=500,
             ),
             
-            # S3 Bucket (Priority 500)
+            # S3 Bucket (Priority 500) - ref-masking-rule.md 준수
             "s3_bucket": PatternDefinition(
-                pattern=r"[a-z0-9][a-z0-9\-\.]{1,61}[a-z0-9](?:-bucket|-storage|-backup|-logs|-data|-config)\b",
+                pattern=r"[a-z0-9][a-z0-9\-]*bucket[a-z0-9\-]*",
                 replacement="AWS_S3_BUCKET_{:03d}",
                 type="s3",
-                description="S3 bucket names with specific AWS suffixes",
+                description="S3 bucket names containing 'bucket'",
                 priority=500,
             ),
             
@@ -654,10 +700,10 @@ class CloudPatterns:
             
             # AWS Session Token (Priority 610)
             "session_token": PatternDefinition(
-                pattern=r"(?:AQoEXAMPLE|FwoGZXIvYXdzE)[A-Za-z0-9/+=]{50,}",
+                pattern=r"FwoGZXIvYXdzE[A-Za-z0-9+/=]+",
                 replacement="AWS_SESSION_TOKEN_{:03d}",
                 type="session_token",
-                description="AWS Session Token (specific prefixes)",
+                description="AWS Session Token",
                 priority=610,
             ),
             
@@ -670,10 +716,10 @@ class CloudPatterns:
                 priority=620,
             ),
             
-            # CloudFront Distribution ID (Priority 650)
+            # CloudFront Distribution ID (Priority 650) - ref-masking-rule.md 준수
             "cloudfront_distribution": PatternDefinition(
                 pattern=r"E[0-9A-Z]{13}",
-                replacement="AWS_CLOUDFRONT_DIST_{:03d}",
+                replacement="AWS_CLOUDFRONT_{:03d}",
                 type="cloudfront_distribution",
                 description="CloudFront Distribution ID",
                 priority=650,
@@ -729,6 +775,7 @@ class CloudPatterns:
                         "start": match.start(),
                         "end": match.end(),
                         "type": pattern_def.type,
+                        "priority": pattern_def.priority,
                     }
                 )
 

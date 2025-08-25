@@ -12,6 +12,10 @@ from contextlib import asynccontextmanager
 import os
 import asyncio
 from typing import Dict, Any, Optional
+from dotenv import load_dotenv
+
+# .env 파일 로드
+load_dotenv()
 
 # 통합 마스킹 시스템
 from .proxy.integrated_masking import IntegratedMaskingSystem

@@ -1,0 +1,968 @@
+{
+  "analysis_timestamp": "2025-01-23T00:00:00Z",
+  "total_patterns_defined": 58,
+  "pattern_definitions": {
+    "fargate_task": {
+      "pattern_name": "fargate_task",
+      "priority": 50,
+      "type": "fargate",
+      "regex_pattern": "arn:aws:ecs:[a-z0-9\\-]+:\\d+:task/[a-zA-Z0-9\\-_]+/[a-zA-Z0-9\\-]{36}",
+      "description": "AWS Fargate Task ARN (with 36-char task ID)",
+      "replacement_template": "AWS_FARGATE_TASK_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "ssm_session": {
+      "pattern_name": "ssm_session",
+      "priority": 60,
+      "type": "ssm_session",
+      "regex_pattern": "s-[a-f0-9]{17}",
+      "description": "Systems Manager Session ID",
+      "replacement_template": "AWS_SSM_SESSION_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "insights_query": {
+      "pattern_name": "insights_query",
+      "priority": 75,
+      "type": "insights",
+      "regex_pattern": "[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}",
+      "description": "CloudWatch Insights Query ID (UUID format)",
+      "replacement_template": "AWS_INSIGHTS_QUERY_{:03d}",
+      "has_validator": true,
+      "validator_name": "_validate_insights_query_id"
+    },
+    "apprunner_service": {
+      "pattern_name": "apprunner_service",
+      "priority": 85,
+      "type": "apprunner",
+      "regex_pattern": "arn:aws:apprunner:[a-z0-9\\-]+:\\d+:service/[a-zA-Z0-9\\-_]+/[a-zA-Z0-9]{16,32}",
+      "description": "App Runner Service ARN",
+      "replacement_template": "AWS_APPRUNNER_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "eventbridge_bus": {
+      "pattern_name": "eventbridge_bus",
+      "priority": 95,
+      "type": "eventbridge",
+      "regex_pattern": "arn:aws:events:[a-z0-9\\-]+:\\d+:event-bus/[a-zA-Z0-9\\-_.]+",
+      "description": "EventBridge Custom Event Bus ARN",
+      "replacement_template": "AWS_EVENTBUS_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "lambda_arn": {
+      "pattern_name": "lambda_arn",
+      "priority": 100,
+      "type": "lambda",
+      "regex_pattern": "arn:aws:lambda:[a-z0-9\\-]+:\\d+:function:[a-zA-Z0-9\\-_]+",
+      "description": "Lambda function ARN",
+      "replacement_template": "AWS_LAMBDA_ARN_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "ecs_task": {
+      "pattern_name": "ecs_task",
+      "priority": 105,
+      "type": "ecs",
+      "regex_pattern": "arn:aws:ecs:[a-z0-9\\-]+:\\d+:task-definition/[a-zA-Z0-9\\-_]+:[0-9]+",
+      "description": "ECS Task Definition ARN",
+      "replacement_template": "AWS_ECS_TASK_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "elb_arn": {
+      "pattern_name": "elb_arn",
+      "priority": 110,
+      "type": "elb",
+      "regex_pattern": "arn:aws:elasticloadbalancing:[a-z0-9\\-]+:\\d+:loadbalancer/[a-zA-Z0-9\\-/]+",
+      "description": "Elastic Load Balancer ARN",
+      "replacement_template": "AWS_ELB_ARN_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "iam_role": {
+      "pattern_name": "iam_role",
+      "priority": 115,
+      "type": "iam_role",
+      "regex_pattern": "arn:aws:iam::\\d+:role/[a-zA-Z0-9\\-_+=,.@]+",
+      "description": "IAM Role ARN",
+      "replacement_template": "AWS_IAM_ROLE_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "iam_user": {
+      "pattern_name": "iam_user",
+      "priority": 120,
+      "type": "iam_user",
+      "regex_pattern": "arn:aws:iam::\\d+:user/[a-zA-Z0-9\\-_+=,.@]+",
+      "description": "IAM User ARN",
+      "replacement_template": "AWS_IAM_USER_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "kms_key": {
+      "pattern_name": "kms_key",
+      "priority": 125,
+      "type": "kms",
+      "regex_pattern": "[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}",
+      "description": "KMS Key ID (UUID format)",
+      "replacement_template": "AWS_KMS_KEY_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "cert_arn": {
+      "pattern_name": "cert_arn",
+      "priority": 130,
+      "type": "certificate",
+      "regex_pattern": "arn:aws:acm:[a-z0-9\\-]+:\\d+:certificate/[a-f0-9\\-]+",
+      "description": "ACM Certificate ARN",
+      "replacement_template": "AWS_CERT_ARN_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "secret_arn": {
+      "pattern_name": "secret_arn",
+      "priority": 135,
+      "type": "secret",
+      "regex_pattern": "arn:aws:secretsmanager:[a-z0-9\\-]+:\\d+:secret:[a-zA-Z0-9\\-_/]+-[a-zA-Z0-9]+",
+      "description": "Secrets Manager ARN",
+      "replacement_template": "AWS_SECRET_ARN_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "param_store_arn": {
+      "pattern_name": "param_store_arn",
+      "priority": 140,
+      "type": "param_store",
+      "regex_pattern": "arn:aws:ssm:[a-z0-9\\-]+:\\d+:parameter/[a-zA-Z0-9\\-_/]+",
+      "description": "Parameter Store ARN",
+      "replacement_template": "AWS_PARAM_ARN_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "dynamodb_table": {
+      "pattern_name": "dynamodb_table",
+      "priority": 145,
+      "type": "dynamodb",
+      "regex_pattern": "arn:aws:dynamodb:[a-z0-9\\-]+:\\d+:table/[a-zA-Z0-9\\-_.]+",
+      "description": "DynamoDB Table ARN",
+      "replacement_template": "AWS_DYNAMODB_TABLE_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "sns_topic": {
+      "pattern_name": "sns_topic",
+      "priority": 125,
+      "type": "sns",
+      "regex_pattern": "arn:aws:sns:[a-z0-9\\-]+:\\d+:[a-zA-Z0-9\\-_]+",
+      "description": "SNS Topic ARN",
+      "replacement_template": "AWS_SNS_TOPIC_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "sqs_queue": {
+      "pattern_name": "sqs_queue",
+      "priority": 140,
+      "type": "sqs",
+      "regex_pattern": "https://sqs\\.[a-z0-9\\-]+\\.amazonaws\\.com/\\d+/[a-zA-Z0-9\\-_]+",
+      "description": "SQS Queue URL",
+      "replacement_template": "AWS_SQS_QUEUE_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "kinesis_stream": {
+      "pattern_name": "kinesis_stream",
+      "priority": 150,
+      "type": "kinesis",
+      "regex_pattern": "arn:aws:kinesis:[a-z0-9\\-]+:\\d+:stream/[a-zA-Z0-9\\-_.]+",
+      "description": "Kinesis Stream ARN",
+      "replacement_template": "AWS_KINESIS_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "stepfunctions_arn": {
+      "pattern_name": "stepfunctions_arn",
+      "priority": 155,
+      "type": "stepfunctions",
+      "regex_pattern": "arn:aws:states:[a-z0-9\\-]+:\\d+:stateMachine:[a-zA-Z0-9\\-_]+",
+      "description": "Step Functions State Machine ARN",
+      "replacement_template": "AWS_STEP_FN_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "batch_job": {
+      "pattern_name": "batch_job",
+      "priority": 160,
+      "type": "batch",
+      "regex_pattern": "arn:aws:batch:[a-z0-9\\-]+:\\d+:job-queue/[a-zA-Z0-9\\-_]+",
+      "description": "Batch Job Queue ARN",
+      "replacement_template": "AWS_BATCH_QUEUE_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "glue_job": {
+      "pattern_name": "glue_job",
+      "priority": 165,
+      "type": "glue",
+      "regex_pattern": "arn:aws:glue:[a-z0-9\\-]+:\\d+:job/[a-zA-Z0-9\\-_]+",
+      "description": "Glue Job ARN",
+      "replacement_template": "AWS_GLUE_JOB_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "sagemaker_endpoint": {
+      "pattern_name": "sagemaker_endpoint",
+      "priority": 170,
+      "type": "sagemaker",
+      "regex_pattern": "arn:aws:sagemaker:[a-z0-9\\-]+:\\d+:endpoint/[a-zA-Z0-9\\-_]+",
+      "description": "SageMaker Endpoint ARN",
+      "replacement_template": "AWS_SAGEMAKER_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "athena_workgroup": {
+      "pattern_name": "athena_workgroup",
+      "priority": 175,
+      "type": "athena",
+      "regex_pattern": "arn:aws:athena:[a-z0-9\\-]+:\\d+:workgroup/[a-zA-Z0-9\\-_]+",
+      "description": "Athena Workgroup ARN",
+      "replacement_template": "AWS_ATHENA_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "codecommit_repo": {
+      "pattern_name": "codecommit_repo",
+      "priority": 180,
+      "type": "codecommit",
+      "regex_pattern": "arn:aws:codecommit:[a-z0-9\\-]+:\\d+:repository/[a-zA-Z0-9\\-_]+",
+      "description": "CodeCommit Repository ARN",
+      "replacement_template": "AWS_CODECOMMIT_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "log_group": {
+      "pattern_name": "log_group",
+      "priority": 185,
+      "type": "logs",
+      "regex_pattern": "arn:aws:logs:[a-z0-9\\-]+:\\d+:log-group:[a-zA-Z0-9\\-_/]+",
+      "description": "CloudWatch Log Group ARN",
+      "replacement_template": "AWS_LOG_GROUP_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "cloudformation_stack": {
+      "pattern_name": "cloudformation_stack",
+      "priority": 190,
+      "type": "cloudformation",
+      "regex_pattern": "arn:aws:cloudformation:[a-z0-9\\-]+:\\d+:stack/[a-zA-Z0-9\\-_]+/[a-f0-9\\-]+",
+      "description": "CloudFormation Stack ARN",
+      "replacement_template": "AWS_CLOUDFORMATION_STACK_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "nat_gateway": {
+      "pattern_name": "nat_gateway",
+      "priority": 200,
+      "type": "nat",
+      "regex_pattern": "nat-[0-9a-f]{17}",
+      "description": "NAT Gateway ID",
+      "replacement_template": "AWS_NAT_GW_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "ebs_volume": {
+      "pattern_name": "ebs_volume",
+      "priority": 210,
+      "type": "ebs",
+      "regex_pattern": "vol-[0-9a-f]{17}",
+      "description": "EBS Volume ID",
+      "replacement_template": "AWS_EBS_VOL_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "subnet": {
+      "pattern_name": "subnet",
+      "priority": 220,
+      "type": "subnet",
+      "regex_pattern": "subnet-[0-9a-f]{17}",
+      "description": "Subnet identifier",
+      "replacement_template": "AWS_SUBNET_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "vpc": {
+      "pattern_name": "vpc",
+      "priority": 230,
+      "type": "vpc",
+      "regex_pattern": "vpc-[0-9a-f]{8}",
+      "description": "VPC identifier",
+      "replacement_template": "AWS_VPC_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "security_group": {
+      "pattern_name": "security_group",
+      "priority": 240,
+      "type": "security_group",
+      "regex_pattern": "sg-[0-9a-f]{8}",
+      "description": "Security group identifier (sg-xxxxxxxx format)",
+      "replacement_template": "AWS_SECURITY_GROUP_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "ec2_instance": {
+      "pattern_name": "ec2_instance",
+      "priority": 260,
+      "type": "ec2",
+      "regex_pattern": "i-[0-9a-f]{17}",
+      "description": "EC2 instance identifier",
+      "replacement_template": "AWS_EC2_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "ami_id": {
+      "pattern_name": "ami_id",
+      "priority": 250,
+      "type": "ami",
+      "regex_pattern": "ami-[0-9a-f]{17}",
+      "description": "AMI identifier",
+      "replacement_template": "AWS_AMI_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "snapshot": {
+      "pattern_name": "snapshot",
+      "priority": 270,
+      "type": "snapshot",
+      "regex_pattern": "snap-[0-9a-f]{17}",
+      "description": "EBS Snapshot ID",
+      "replacement_template": "AWS_SNAPSHOT_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "internet_gateway": {
+      "pattern_name": "internet_gateway",
+      "priority": 280,
+      "type": "igw",
+      "regex_pattern": "igw-[0-9a-f]{17}",
+      "description": "Internet Gateway ID",
+      "replacement_template": "AWS_IGW_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "vpn_connection": {
+      "pattern_name": "vpn_connection",
+      "priority": 285,
+      "type": "vpn",
+      "regex_pattern": "vpn-[0-9a-f]{8}",
+      "description": "VPN Connection ID",
+      "replacement_template": "AWS_VPN_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "efs_filesystem": {
+      "pattern_name": "efs_filesystem",
+      "priority": 290,
+      "type": "efs",
+      "regex_pattern": "fs-[0-9a-f]{17}",
+      "description": "EFS File System ID",
+      "replacement_template": "AWS_EFS_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "rds_instance": {
+      "pattern_name": "rds_instance",
+      "priority": 300,
+      "type": "rds",
+      "regex_pattern": "[a-z][a-z0-9\\-]*db[a-z0-9\\-]*-[a-z0-9]{7}",
+      "description": "RDS Instance ID",
+      "replacement_template": "AWS_RDS_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "elasticache_cluster": {
+      "pattern_name": "elasticache_cluster",
+      "priority": 310,
+      "type": "elasticache",
+      "regex_pattern": "[a-z][a-z0-9\\-]*-cluster-[0-9]{3}",
+      "description": "ElastiCache Cluster ID",
+      "replacement_template": "AWS_ELASTICACHE_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "redshift_cluster": {
+      "pattern_name": "redshift_cluster",
+      "priority": 320,
+      "type": "redshift",
+      "regex_pattern": "[a-z][a-z0-9\\-]*-cluster",
+      "description": "Redshift Cluster ID",
+      "replacement_template": "AWS_REDSHIFT_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "transit_gateway": {
+      "pattern_name": "transit_gateway",
+      "priority": 330,
+      "type": "tgw",
+      "regex_pattern": "tgw-[0-9a-f]{17}",
+      "description": "Transit Gateway ID",
+      "replacement_template": "AWS_TGW_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "api_gateway": {
+      "pattern_name": "api_gateway",
+      "priority": 320,
+      "type": "api_gateway",
+      "regex_pattern": "https://[a-z0-9]{10}\\.execute-api\\.[a-z0-9\\-]+\\.amazonaws\\.com(?:/[a-zA-Z0-9\\-_]+)?",
+      "description": "API Gateway URL",
+      "replacement_template": "AWS_API_GW_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "access_key": {
+      "pattern_name": "access_key",
+      "priority": 350,
+      "type": "access_key",
+      "regex_pattern": "AKIA[0-9A-Z]{16}",
+      "description": "AWS Access Key ID",
+      "replacement_template": "AWS_ACCESS_KEY_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "route53_zone": {
+      "pattern_name": "route53_zone",
+      "priority": 360,
+      "type": "route53",
+      "regex_pattern": "Z[0-9A-Z]{13,}",
+      "description": "Route53 Hosted Zone ID",
+      "replacement_template": "AWS_ROUTE53_ZONE_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "cloudwatch_log": {
+      "pattern_name": "cloudwatch_log",
+      "priority": 390,
+      "type": "cloudwatch",
+      "regex_pattern": "/aws/[a-zA-Z0-9\\-_/]+",
+      "description": "CloudWatch Log Group",
+      "replacement_template": "AWS_LOG_GROUP_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "ssm_parameter": {
+      "pattern_name": "ssm_parameter",
+      "priority": 380,
+      "type": "ssm_parameter",
+      "regex_pattern": "/[a-zA-Z0-9\\-_/]+",
+      "description": "SSM Parameter Store Path",
+      "replacement_template": "AWS_SSM_PARAM_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "s3_bucket_logs": {
+      "pattern_name": "s3_bucket_logs",
+      "priority": 395,
+      "type": "s3_logs",
+      "regex_pattern": "[a-z0-9][a-z0-9\\-]*logs[a-z0-9\\-]*-[0-9]+",
+      "description": "S3 Logs bucket with date",
+      "replacement_template": "AWS_S3_LOGS_BUCKET_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "cloudtrail_arn": {
+      "pattern_name": "cloudtrail_arn",
+      "priority": 399,
+      "type": "cloudtrail",
+      "regex_pattern": "arn:aws:cloudtrail:[a-z0-9\\-]+:\\d+:trail/[a-zA-Z0-9\\-_]+",
+      "description": "CloudTrail ARN",
+      "replacement_template": "AWS_CLOUDTRAIL_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "ipv6": {
+      "pattern_name": "ipv6",
+      "priority": 470,
+      "type": "ipv6",
+      "regex_pattern": "\\b([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}\\b|\\b([0-9a-fA-F]{1,4}:){1,7}:\\b|\\b([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}\\b",
+      "description": "IPv6 Address (RFC 4291 compliant)",
+      "replacement_template": "AWS_IPV6_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "elastic_ip": {
+      "pattern_name": "elastic_ip",
+      "priority": 480,
+      "type": "elastic_ip",
+      "regex_pattern": "eipalloc-[0-9a-f]{17}",
+      "description": "Elastic IP Allocation ID",
+      "replacement_template": "AWS_ELASTIC_IP_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "cloudfront": {
+      "pattern_name": "cloudfront",
+      "priority": 490,
+      "type": "cloudfront",
+      "regex_pattern": "[a-z0-9]{13,14}\\.cloudfront\\.net",
+      "description": "CloudFront Domain",
+      "replacement_template": "AWS_CLOUDFRONT_DOMAIN_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "public_ip": {
+      "pattern_name": "public_ip",
+      "priority": 460,
+      "type": "public_ip",
+      "regex_pattern": "\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b",
+      "description": "Public IP Address",
+      "replacement_template": "AWS_PUBLIC_IP_{:03d}",
+      "has_validator": true,
+      "validator_name": "_validate_public_ip"
+    },
+    "arn": {
+      "pattern_name": "arn",
+      "priority": 500,
+      "type": "arn",
+      "regex_pattern": "arn:aws:[a-z0-9\\-]+:[a-z0-9\\-]*:[0-9]*:[a-zA-Z0-9\\-/:*]+",
+      "description": "AWS ARN (Amazon Resource Name) - Fallback pattern",
+      "replacement_template": "AWS_ARN_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "s3_bucket": {
+      "pattern_name": "s3_bucket",
+      "priority": 500,
+      "type": "s3",
+      "regex_pattern": "[a-z0-9][a-z0-9\\-\\.]{1,61}[a-z0-9](?:-bucket|-storage|-backup|-logs|-data|-config)\\b",
+      "description": "S3 bucket names with specific AWS suffixes",
+      "replacement_template": "AWS_S3_BUCKET_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "account_id": {
+      "pattern_name": "account_id",
+      "priority": 600,
+      "type": "account",
+      "regex_pattern": "\\b\\d{12}\\b",
+      "description": "AWS Account ID (12 digits)",
+      "replacement_template": "AWS_ACCOUNT_{:03d}",
+      "has_validator": true,
+      "validator_name": "_validate_account_id"
+    },
+    "session_token": {
+      "pattern_name": "session_token",
+      "priority": 610,
+      "type": "session_token",
+      "regex_pattern": "(?:AQoEXAMPLE|FwoGZXIvYXdzE)[A-Za-z0-9/+=]{50,}",
+      "description": "AWS Session Token (specific prefixes)",
+      "replacement_template": "AWS_SESSION_TOKEN_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "secret_key": {
+      "pattern_name": "secret_key",
+      "priority": 620,
+      "type": "secret_key",
+      "regex_pattern": "[A-Za-z0-9/+=]{40}",
+      "description": "AWS Secret Access Key",
+      "replacement_template": "AWS_SECRET_KEY_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    },
+    "cloudfront_distribution": {
+      "pattern_name": "cloudfront_distribution",
+      "priority": 650,
+      "type": "cloudfront_distribution",
+      "regex_pattern": "E[0-9A-Z]{13}",
+      "description": "CloudFront Distribution ID",
+      "replacement_template": "AWS_CLOUDFRONT_DIST_{:03d}",
+      "has_validator": false,
+      "validator_name": null
+    }
+  },
+  "test_results": {
+    "working_patterns": [
+      {
+        "pattern": "fargate_task",
+        "success_rate": 100.0,
+        "samples": [
+          "arn:aws:ecs:us-east-1:123456789012:task/my-fargate-cluster/1234abcd-12ab-34cd-56ef-1234567890ab",
+          "arn:aws:ecs:eu-west-1:987654321098:task/prod-cluster/abcdef12-34cd-56ef-78ab-90cd12345678"
+        ],
+        "status": "fully_working"
+      },
+      {
+        "pattern": "lambda_arn",
+        "success_rate": 100.0,
+        "samples": [
+          "arn:aws:lambda:us-east-1:123456789012:function:ProcessPayment",
+          "arn:aws:lambda:eu-west-1:987654321098:function:user-authentication"
+        ],
+        "status": "fully_working"
+      },
+      {
+        "pattern": "ecs_task",
+        "success_rate": 100.0,
+        "samples": [
+          "arn:aws:ecs:us-east-1:123456789012:task-definition/web-app:1",
+          "arn:aws:ecs:eu-west-1:987654321098:task-definition/api-service:23"
+        ],
+        "status": "fully_working"
+      },
+      {
+        "pattern": "ec2_instance",
+        "success_rate": 100.0,
+        "samples": [
+          "i-0123456789abcdef0",
+          "i-abcdef1234567890a"
+        ],
+        "status": "fully_working"
+      },
+      {
+        "pattern": "ami_id",
+        "success_rate": 100.0,
+        "samples": [
+          "ami-0123456789abcdef0",
+          "ami-abcdef1234567890a"
+        ],
+        "status": "fully_working"
+      },
+      {
+        "pattern": "vpc",
+        "success_rate": 100.0,
+        "samples": [
+          "vpc-12345678",
+          "vpc-abcdef12"
+        ],
+        "status": "fully_working"
+      },
+      {
+        "pattern": "subnet",
+        "success_rate": 100.0,
+        "samples": [
+          "subnet-12345678901234567",
+          "subnet-98765432109876543"
+        ],
+        "status": "fully_working"
+      },
+      {
+        "pattern": "security_group",
+        "success_rate": 100.0,
+        "samples": [
+          "sg-0123456789abcdef0",
+          "sg-abcdef1234567890a"
+        ],
+        "status": "fully_working"
+      },
+      {
+        "pattern": "internet_gateway",
+        "success_rate": 100.0,
+        "samples": [
+          "igw-0123456789abcdef0",
+          "igw-abcdef1234567890a"
+        ],
+        "status": "fully_working"
+      },
+      {
+        "pattern": "s3_bucket",
+        "success_rate": 100.0,
+        "samples": [
+          "my-production-bucket",
+          "company-data-lake-2024"
+        ],
+        "status": "fully_working"
+      },
+      {
+        "pattern": "ebs_volume",
+        "success_rate": 100.0,
+        "samples": [
+          "vol-0123456789abcdef0",
+          "vol-abcdef1234567890a"
+        ],
+        "status": "fully_working"
+      },
+      {
+        "pattern": "snapshot",
+        "success_rate": 100.0,
+        "samples": [
+          "snap-0123456789abcdef0",
+          "snap-abcdef1234567890a"
+        ],
+        "status": "fully_working"
+      },
+      {
+        "pattern": "efs_filesystem",
+        "success_rate": 100.0,
+        "samples": [
+          "fs-0123456789abcdef0",
+          "fs-abcdef1234567890a"
+        ],
+        "status": "fully_working"
+      },
+      {
+        "pattern": "access_key",
+        "success_rate": 100.0,
+        "samples": [
+          "AKIA1234567890ABCDEF",
+          "AKIAXYZ789ABC123DEFG"
+        ],
+        "status": "fully_working"
+      },
+      {
+        "pattern": "secret_key",
+        "success_rate": 100.0,
+        "samples": [
+          "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+          "1234567890abcdef1234567890abcdef12345678"
+        ],
+        "status": "fully_working"
+      },
+      {
+        "pattern": "session_token",
+        "success_rate": 100.0,
+        "samples": [
+          "AQoEXAMPLEH4aoAH0gNCAPyJxz4BlCFFxWNE1OPTgk5TthT+FvwqnKwRcOIfrRh3c/LTo6UDdyJwOOvEVPvLXCrrrUtdnniCEXAMPLE",
+          "FwoGZXIvYXdzEBQaDGg3S1NnVGZjZ1ZGOyKKASEMAMPLEsessiontokenexample1234567890"
+        ],
+        "status": "fully_working"
+      },
+      {
+        "pattern": "account_id",
+        "success_rate": 100.0,
+        "samples": [
+          "123456789012",
+          "987654321098"
+        ],
+        "status": "fully_working"
+      },
+      {
+        "pattern": "public_ip",
+        "success_rate": 100.0,
+        "samples": [
+          "8.8.8.8",
+          "1.1.1.1",
+          "203.0.113.12",
+          "198.51.100.45"
+        ],
+        "status": "fully_working"
+      },
+      {
+        "pattern": "ipv6",
+        "success_rate": 100.0,
+        "samples": [
+          "2001:0db8:85a3:0000:0000:8a2e:0370:7334",
+          "2001:db8::1"
+        ],
+        "status": "fully_working"
+      },
+      {
+        "pattern": "apprunner_service",
+        "success_rate": 100.0,
+        "samples": [
+          "arn:aws:apprunner:us-east-1:123456789012:service/my-app-service/8fe1e10304374e7c80684681ea1967",
+          "arn:aws:apprunner:eu-west-1:987654321098:service/prod-service/1234567890abcdef1234567890abcd"
+        ],
+        "status": "fully_working"
+      }
+    ],
+    "partial_patterns": [
+      {
+        "pattern": "kms_key",
+        "success_rate": 50.0,
+        "samples": [
+          "12345678-1234-1234-1234-123456789012",
+          "abcdef12-3456-7890-abcd-ef1234567890"
+        ],
+        "status": "partially_working"
+      }
+    ],
+    "failed_patterns": [
+      {
+        "pattern": "insights_query",
+        "success_rate": 33.33333333333333,
+        "samples": [
+          "12345678-1234-1234-1234-123456789012",
+          "abcd1234-ef56-7890-abcd-ef1234567890",
+          "87654321-4321-8765-4321-876543218765"
+        ],
+        "status": "failed"
+      }
+    ],
+    "overall_success_rate": 90.9090909090909,
+    "total_tested": 22
+  },
+  "priority_analysis": {
+    "priority_groups": {
+      "50": [
+        "fargate_task"
+      ],
+      "60": [
+        "ssm_session"
+      ],
+      "75": [
+        "insights_query"
+      ],
+      "85": [
+        "apprunner_service"
+      ],
+      "95": [
+        "eventbridge_bus"
+      ],
+      "100": [
+        "lambda_arn"
+      ],
+      "105": [
+        "ecs_task"
+      ],
+      "110": [
+        "elb_arn"
+      ],
+      "115": [
+        "iam_role"
+      ],
+      "120": [
+        "iam_user"
+      ],
+      "125": [
+        "kms_key",
+        "sns_topic"
+      ],
+      "130": [
+        "cert_arn"
+      ],
+      "135": [
+        "secret_arn"
+      ],
+      "140": [
+        "param_store_arn",
+        "sqs_queue"
+      ],
+      "145": [
+        "dynamodb_table"
+      ],
+      "150": [
+        "kinesis_stream"
+      ],
+      "155": [
+        "stepfunctions_arn"
+      ],
+      "160": [
+        "batch_job"
+      ],
+      "165": [
+        "glue_job"
+      ],
+      "170": [
+        "sagemaker_endpoint"
+      ],
+      "175": [
+        "athena_workgroup"
+      ],
+      "180": [
+        "codecommit_repo"
+      ],
+      "185": [
+        "log_group"
+      ],
+      "190": [
+        "cloudformation_stack"
+      ],
+      "200": [
+        "nat_gateway"
+      ],
+      "210": [
+        "ebs_volume"
+      ],
+      "220": [
+        "subnet"
+      ],
+      "230": [
+        "vpc"
+      ],
+      "240": [
+        "security_group"
+      ],
+      "260": [
+        "ec2_instance"
+      ],
+      "250": [
+        "ami_id"
+      ],
+      "270": [
+        "snapshot"
+      ],
+      "280": [
+        "internet_gateway"
+      ],
+      "285": [
+        "vpn_connection"
+      ],
+      "290": [
+        "efs_filesystem"
+      ],
+      "300": [
+        "rds_instance"
+      ],
+      "310": [
+        "elasticache_cluster"
+      ],
+      "320": [
+        "redshift_cluster",
+        "api_gateway"
+      ],
+      "330": [
+        "transit_gateway"
+      ],
+      "350": [
+        "access_key"
+      ],
+      "360": [
+        "route53_zone"
+      ],
+      "390": [
+        "cloudwatch_log"
+      ],
+      "380": [
+        "ssm_parameter"
+      ],
+      "395": [
+        "s3_bucket_logs"
+      ],
+      "399": [
+        "cloudtrail_arn"
+      ],
+      "470": [
+        "ipv6"
+      ],
+      "480": [
+        "elastic_ip"
+      ],
+      "490": [
+        "cloudfront"
+      ],
+      "460": [
+        "public_ip"
+      ],
+      "500": [
+        "arn",
+        "s3_bucket"
+      ],
+      "600": [
+        "account_id"
+      ],
+      "610": [
+        "session_token"
+      ],
+      "620": [
+        "secret_key"
+      ],
+      "650": [
+        "cloudfront_distribution"
+      ]
+    },
+    "conflict_resolution": "길이 우선 + 우선순위 기반 그리디 알고리즘"
+  }
+}
